@@ -172,6 +172,7 @@ button[type="submit"]:hover {
 
 /* Diseño para las gastos*/
 
+
 .contenedor-gastos{
     width: 100%;
     display: flex;
@@ -201,4 +202,71 @@ button[type="submit"]:hover {
     position: relative;
     right: 2%;
     top: 2%;
+}
+
+
+button[type="button"]{
+    width: 10%;
+    float: right;
+    margin-right: 5%;
+    background-color: #ef9071;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #fbcb9d;
+}
+        /*Formulario agregar gastos*/
+.formulario-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.formulario-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    position: relative;
+}
+.cerrar-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* Diseño para lista de la compra*/
+.contenedor-lista-compra{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1%;
+}
+
+#btn-agregar-lista{
+    position: fixed;
+    top: 20%;
+    right: 5%;
 }

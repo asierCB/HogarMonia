@@ -1,6 +1,13 @@
 //console.log('¡JavaScript cargado!');
 
-document.getElementById('menu-btn').addEventListener('click', function() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('visible');
+const mostrarBtn = document.getElementById('btn-agregar-gasto')
+const cerrarBtn = document.getElementById('cerrarFormularioBtn')
+const overlay = document.getElementById('formularioOverlay')
+
+mostrarBtn.addEventListener('click', () => {
+    overlay.style.display = 'flex';
+});
+
+cerrarBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
 });

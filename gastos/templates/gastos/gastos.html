@@ -6,7 +6,6 @@
   <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tareas</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- href="../static/style.css">-->
-  <script src="{% static 'js/scripts.js' %}"></script> <!-- "../static/script.js"></script>-->
 </head>
 <body>
 <header>
@@ -29,14 +28,72 @@
 <!--<h1 class="titulo">Gastos</h1>-->
 <h1 class="titulo">Registro de Gastos</h1>
 
-<button type="submit" style="width: 10%; float: right; margin-right: 5%;"><strong>+ Agregar gasto</strong></button>
+<button type="button" id="btn-agregar-gasto">
+  <strong>+ Agregar gasto</strong>
+</button>
+
+<div class="formulario-overlay" id="formularioOverlay">
+  <div class="formulario-container">
+    <button class="cerrar-btn" id="cerrarFormularioBtn">&times;</button>
+    <h2>Agregar gasto</h2>
+    <form>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre">
+      <br>
+      <label for="precio">Precio:</label>
+      <input type="text" id="precio" name="precio">
+      <br>
+      <p>Participantes:</p>
+      <div>
+        <input type="checkbox" id="opcion1" name="opciones[]" value="valor1">
+        <label for="opcion1">Opción 1</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="opcion2" name="opciones[]" value="valor2">
+        <label for="opcion2">Opción 2</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="opcion3" name="opciones[]" value="valor3">
+        <label for="opcion3">Opción 3</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="opcion4" name="opciones[]" value="valor4">
+        <label for="opcion4">Opción 4</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="opcion5" name="opciones[]" value="valor5">
+        <label for="opcion5">Opción 5</label>
+      </div>
+      <!--<select id="opciones" name="opciones" multiple>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>-->
+
+      <p>Pagado por:</p>
+      <input type="radio" id="persona1" name="pago" value="Ana">
+      <label for="persona1">Ana</label><br>
+
+      <input type="radio" id="persona2" name="pago" value="Paula">
+      <label for="persona2">Paula</label><br>
+
+      <input type="radio" id="persona3" name="pago" value="Carlos" checked>
+      <label for="persona3">Carlos</label><br>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</div>
 
 <div class="contenedor-gastos">
   <br>
   <div class="gasto">
     <h2 class="gasto-nombre">Nombre del gasto</h2>
     <div class="gasto-detalles">
-      <p class="gasto-cantidad">Cantidad: ??? €</p>
+      <p class="gasto-cantidad">Precio: ??? €</p>
       <p class="gasto-participantes">Participantes: </p>
       <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
     </div>
@@ -45,7 +102,7 @@
   <div class="gasto">
     <h2 class="gasto-nombre">Nombre del gasto</h2>
     <div class="gasto-detalles">
-      <p class="gasto-cantidad">Cantidad: ??? €</p>
+      <p class="gasto-cantidad">Precio: ??? €</p>
       <p class="gasto-participantes">Participantes: </p>
       <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
     </div>
@@ -54,7 +111,7 @@
   <div class="gasto">
     <h2 class="gasto-nombre">Nombre del gasto</h2>
     <div class="gasto-detalles">
-      <p class="gasto-cantidad">Cantidad: ??? €</p>
+      <p class="gasto-cantidad">Precio: ??? €</p>
       <p class="gasto-participantes">Participantes: </p>
       <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
     </div>
@@ -63,7 +120,7 @@
   <div class="gasto">
     <h2 class="gasto-nombre">Nombre del gasto</h2>
     <div class="gasto-detalles">
-      <p class="gasto-cantidad">Cantidad: ??? €</p>
+      <p class="gasto-cantidad">Precio: ??? €</p>
       <p class="gasto-participantes">Participantes: </p>
       <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
     </div>
@@ -172,5 +229,6 @@
     </p>
   </div>
 </footer>
+<script src="{% static 'js/script.js' %}"></script> <!-- "../static/script.js"></script>-->
 </body>
 </html>
