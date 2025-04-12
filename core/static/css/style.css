@@ -1,0 +1,204 @@
+/*body {
+    font-family: sans-serif;
+    text-align: center;
+}*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin-left: 4%;
+    margin-right: 4%;
+    padding: 0;
+    background-color: #f2f2f2;
+    color: #333951;
+}
+
+header {
+    position: sticky; /* Hace que el header sea 'pegajoso' */
+    top: 2%;           /* Se pegará a 0px del borde superior cuando hagas scroll */
+    width: 98%;      /* Usualmente querrás que ocupe todo el ancho */
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 2%;
+    /*background-color: #fbcb9d;  O el color que desees (importante para cuando se 'pegue') */
+    padding: 10px;  /* Ejemplo de padding */
+    z-index: 1000;    /* Asegura que esté por encima de otros elementos */
+    height: 4%;
+}
+
+.designHeader {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: repeat(1, 1fr);
+    gap: 8px;
+    align-items: center;/*nuevo*/
+}
+
+.divLogo {
+    margin-left: 2%;
+    margin-right: 10px;
+}
+
+.divLinks {
+    display: flex;
+    align-items: center;
+}
+#header-nav{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0px;
+}
+.elementos-header{
+    margin-right: 10%;
+}
+
+.divUser{
+    position: absolute;
+    right: 4%;
+}
+
+.titulo{
+    margin-left: 5%;
+}
+
+
+
+
+
+
+
+
+footer {
+    position: relative;
+    bottom: 2px;
+    width: 100%;
+    border-radius: 15px;
+    height: 20%;
+    margin-bottom: 2%;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+p {
+    text-indent: 2em; /* Sangría de 2 veces el tamaño de la fuente del elemento */
+}
+
+
+
+
+
+/* Diseño login.html y singin.html */
+.header-in {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 80px;
+    border-radius: 100%;
+}
+#logo-in {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: #fff;
+}
+
+.body-in {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+    background-color: #f2f2f2; /* Un color de fondo para el body */
+    margin: 0; /* Elimina los márgenes por defecto del body */
+}
+
+.contenedor-in {
+    background-color: #fff; /* Color de fondo del rectángulo de login */
+    padding: 30px; /* Espacio interno alrededor del formulario */
+    border-radius: 15px; /* Bordes redondeados (opcional) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave (opcional) */
+    width: 400px; /* Ancho del rectángulo (ajusta según necesites) */
+    /* Puedes ajustar la altura con 'height' si lo deseas, pero a menudo se ajusta al contenido */
+}
+
+.formulario-in h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.campo input[type="text"],
+.campo input[type="password"],
+.campo input[type="email"],
+.campo input[type="date"]{
+    width: calc(100% - 12px); /* Ancho completo menos el padding */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluye padding y border en el ancho */
+}
+
+button[type="submit"] {
+    background-color: #ef9071;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #fbcb9d;
+}
+
+
+
+
+/* Diseño para las gastos*/
+
+.contenedor-gastos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2%;
+}
+
+.gasto{
+    width: 80%;
+    height: 10%;
+    margin-bottom: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1%;
+    background-color: #ffffff;
+    border-radius: 15px;
+
+}
+
+.deuda-total{
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    float: right;
+    position: relative;
+    right: 2%;
+    top: 2%;
+}

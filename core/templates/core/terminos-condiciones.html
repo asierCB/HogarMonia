@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- href="../static/style.css">-->
+    <script src="{% static 'js/scripts.js' %}"></script> <!-- "../static/script.js"></script>-->
+</head>
+<body>
+<header>
+    <div class="designHeader">
+        <div class="divLogo">
+            <a href="{% url 'index' %}"><img src="{% static 'img/logo.jpg' %}" alt="logo" width="80" height="80"></a>
+        </div>
+        <div class="divLinks">
+            <ul id="header-nav">
+                <li class="elementos-header"><a href="{% url 'tareas' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                <li class="elementos-header"><a href="{% url 'gastos' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
+                <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
+            </ul>
+        </div>
+        <div class="divUser">
+            <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+        </div>
+    </div>
+</header>
+<h1 class="titulo">Términos y Condiciones de Uso</h1>
+<h2> Centro de Armonía Doméstica</h2>
+
+<h5>Fecha de última actualización: 10 de abril de 2025</h5>
+
+<p>Por favor, lee atentamente estos Términos y Condiciones de Uso ("Términos") antes de acceder o utilizar el sitio web
+    [Nombre de tu Sitio Web] (el "Sitio Web"). Al acceder o utilizar el Sitio Web, aceptas estar legalmente vinculado por
+    estos Términos. Si no estás de acuerdo con alguno de estos términos, no accedas ni utilices el Sitio Web.</p>
+
+<h3>1. Aceptación de los Términos:</h3>
+    <p>Al acceder y utilizar el Sitio Web, confirmas que tienes la edad legal para celebrar contratos en tu jurisdicción y
+        que comprendes y aceptas estos Términos en su totalidad.</p>
+
+<h3>2. Uso del Sitio Web:</h3>
+    <ul>
+        <li>Se te concede una licencia limitada, no exclusiva, intransferible y revocable para acceder y utilizar el Sitio
+            Web de acuerdo con estos Términos.</li>
+        <br>
+        <li>Te comprometes a utilizar el Sitio Web únicamente para fines lícitos y de manera que no infrinjas los derechos
+            de terceros ni restrinjas o inhibas el uso y disfrute del Sitio Web por parte de otros usuarios.</li>
+        <br>
+        <li>Queda prohibido realizar las siguientes acciones (sin limitación):</li>
+        <br>
+        <ul>
+            <li>Utilizar el Sitio Web de manera fraudulenta o engañosa.</li>
+            <br>
+            <li>Intentar obtener acceso no autorizado a cualquier parte del Sitio Web, servidores o redes conectadas al Sitio Web.</li>
+            <br>
+            <li>Introducir o transmitir virus, gusanos, troyanos u otro código malicioso.</li>
+            <br>
+            <li>Modificar, adaptar, traducir, realizar ingeniería inversa, descompilar o desensamblar cualquier parte del Sitio Web.</li>
+            <br>
+            <li>Recopilar o almacenar datos personales de otros usuarios sin su consentimiento.</li>
+        </ul>
+    </ul>
+
+<h3>3. Propiedad Intelectual:</h3>
+    <ul>
+        <li>Todo el contenido incluido en el Sitio Web, como texto, gráficos, logotipos, iconos, imágenes, clips de audio, descargas
+            digitales, compilaciones de datos y software, es propiedad de [Tu Nombre/Nombre de tu Empresa] o de sus licenciantes y
+            está protegido por las leyes de propiedad intelectual aplicables.</li>
+        <br>
+        <li>Se prohíbe la reproducción, distribución, modificación, exhibición o cualquier otro uso no autorizado del contenido del
+            Sitio Web sin el consentimiento previo por escrito de [Tu Nombre/Nombre de tu Empresa].</li>
+    </ul>
+
+<h3>4. Contenido del Usuario (Si aplica):¿?¿?</h3>
+    <ul>
+        <li>Si el Sitio Web permite a los usuarios enviar, publicar o mostrar contenido ("Contenido del Usuario"), conservas todos
+            los derechos de propiedad sobre tu Contenido del Usuario.</li>
+        <br>
+        <li>Al enviar, publicar o mostrar Contenido del Usuario, nos otorgas una licencia mundial, no exclusiva, transferible,
+            sublicenciable, libre de regalías y perpetua para utilizar, reproducir, distribuir, modificar, crear trabajos derivados,
+            mostrar públicamente y ejecutar públicamente dicho Contenido del Usuario en relación con el Sitio Web y nuestros servicios.</li>
+        <br>
+        <li>Declaras y garantizas que tienes todos los derechos necesarios sobre tu Contenido del Usuario y que su publicación no infringe
+            los derechos de terceros.</li>
+        <br>
+        <li>Nos reservamos el derecho de eliminar o modificar cualquier Contenido del Usuario que consideremos que viola estos Términos
+            o que sea inapropiado por cualquier motivo.</li>
+    </ul>
+
+<h3>5. Enlaces a Sitios Web de Terceros:</h3>
+    <p>El Sitio Web puede contener enlaces a sitios web de terceros que no son propiedad ni están controlados por [Tu Nombre/Nombre de
+        tu Empresa]. No tenemos control sobre el contenido, las políticas de privacidad o las prácticas de ningún sitio web de terceros
+        y no asumimos ninguna responsabilidad por ellos. Al acceder a sitios web de terceros, lo haces bajo tu propio riesgo.</p>
+
+<h3>6. Limitación de Responsabilidad:</h3>
+    <ul>
+        <li>El Sitio Web se proporciona "tal cual" y "según disponibilidad", sin garantías de ningún tipo, ya sean expresas o
+            implícitas, incluyendo, pero no limitado a, garantías de comerciabilidad, idoneidad para un propósito particular,
+            no infracción o curso de ejecución.</li>
+        <br>
+        <li>En la máxima medida permitida por la ley aplicable, [Tu Nombre/Nombre de tu Empresa] no será responsable de ningún
+            daño directo, indirecto, incidental, especial, consecuencial o punitivo (incluyendo, sin limitación, la pérdida de
+            beneficios, datos, uso, buena voluntad u otras pérdidas intangibles) que resulten de tu acceso o uso del Sitio Web
+            o de la imposibilidad de acceder o utilizarlo.</li>
+    </ul>
+
+<h3>7. Indemnización:</h3>
+    <p>Aceptas indemnizar, defender y eximir de responsabilidad a [Tu Nombre/Nombre de tu Empresa], sus afiliados, funcionarios,
+        directores, empleados, agentes y licenciantes de cualquier reclamación, responsabilidad, daño, pérdida, costo, gasto u
+        honorario (incluidos los honorarios razonables de abogados) que surjan de o estén relacionados con tu uso del Sitio Web,
+        tu Contenido del Usuario (si aplica) o tu incumplimiento de estos Términos.</p>
+
+<h3>8. Modificaciones de los Términos:</h3>
+    <p>Nos reservamos el derecho de modificar estos Términos en cualquier momento sin previo aviso. Cualquier modificación
+        entrará en vigor inmediatamente después de su publicación en el Sitio Web. Es tu responsabilidad revisar periódicamente
+        estos Términos para estar al tanto de cualquier cambio. El uso continuado del Sitio Web después de la publicación de las
+        modificaciones constituirá tu aceptación de los Términos modificados. </p>
+
+<h3>9. Ley Aplicable y Jurisdicción:</h3>
+    <p>Estos Términos se regirán e interpretarán de acuerdo con las leyes de España, sin dar efecto a sus principios de
+        conflicto de leyes. </p>
+
+<h3>10. Disposiciones Generales:</h3>
+    <ul>
+        <li>Estos Términos constituyen el acuerdo completo entre tú y [Tu Nombre/Nombre de tu Empresa] con respecto al uso del
+            Sitio Web y reemplazan todos los acuerdos y entendimientos anteriores o contemporáneos, ya sean orales o escritos.</li>
+        <br>
+        <li>La falta de ejercicio o aplicación por nuestra parte de cualquier derecho o disposición de estos Términos no constituirá
+            una renuncia a dicho derecho o disposición.</li>
+        <br>
+        <li>Si alguna disposición de estos Términos se considera inválida o inaplicable por un tribunal de jurisdicción competente,
+            las demás disposiciones de estos Términos permanecerán en pleno vigor y efecto.</li>
+    </ul>
+<h3>Contacto:</h3>
+    <p>Si tienes alguna pregunta sobre estos Términos, por favor contáctanos a través de [Tu dirección de correo
+        electrónico de contacto].</p>
+<br>
+<br>
+
+<footer>
+    <div style="text-align: center;">
+        Contáctanos: centroarmoniadomestica@gmail.com
+    </div>
+
+    <div style="height: 1px;  background-color: #ccc;  margin: 10px auto;  width: 75%;"></div> <!--separator line-->
+
+    <div class="copyright">
+        <p style="font-size: 12px">&copy; 2025 Centro de Armonía Doméstica. Todos los derechos reservados.</p>
+        <p>
+            <a href="{% url 'terms' %}" style="color: #353b53">Términos y condiciones</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'privacy' %}" style="color: #353b53">Privacidad</a>
+        </p>
+    </div>
+</footer>
+</body>
+</html>
