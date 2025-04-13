@@ -168,10 +168,84 @@ button[type="submit"]:hover {
 }
 
 
+/* Diseño para las tareas */
+
+.contenedor-tareas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2%;
+}
+
+
+.tarea {
+    display: flex; /* Convertimos el contenedor principal en un flex container */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    /*border: 1px solid #ccc; /* Opcional: para visualizar el contenedor */
+    /*padding: 10px;  Opcional: añade espacio interno */
+    width: 80%;
+    height: 10%;
+    margin-bottom: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1%;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.izquierda {
+    display: flex; /* Para alinear el checkbox y la información de la tarea */
+    align-items: center;
+    flex-grow: 1; /* Permite que la parte izquierda crezca y ocupe más espacio */
+}
+
+.info-tarea {
+    margin-left: 20px; /* Espacio entre el checkbox y el texto */
+}
+
+.nombre-tarea {
+    font-size: 24px;
+}
+
+.estado {
+    margin-left: auto; /* Empuja el estado hacia la derecha */
+}
+
+.acciones {
+    margin-left: 10%; /* Espacio entre el estado y las acciones */
+    margin-bottom: 45px;
+}
+
+.tarea .opciones-tareas{
+    display: flex; /* Convierte el botón en un contenedor flex */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center;
+    /*padding: 10px 15px;*/
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    height: 5px;
+
+}
+
+#btn-randomizar{
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+    background-color: #ef9071;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 5%;
+    height: 10%;
+    border-radius: 50px;
+}
+
+#btn-randomizar:hover {
+    background-color: #fbcb9d;
+}
 
 
 /* Diseño para las gastos*/
-
 
 .contenedor-gastos{
     width: 100%;

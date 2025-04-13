@@ -26,6 +26,67 @@
     </div>
 </header>
 <h1 class="titulo">Tareas</h1>
+
+<button type="button" id="btn-agregar-tarea">
+    <strong>+ Agregar Tarea</strong>
+</button>
+
+
+<button type="submit" id="btn-randomizar">
+        <img src="{% static 'img/random.png' %}" alt="randomizar" width="60" height="60">
+</button>
+
+
+<div class="contenedor-tareas">
+    <br>
+    <div class="tarea">
+        <div class="izquierda">
+            <input type="checkbox">
+            <div class="info-tarea">
+                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
+                <div class="persona-asignada">Persona asignada</div>
+            </div>
+        </div>
+        <div class="estado">Estado</div>
+        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
+    </div>
+
+    <div class="tarea">
+        <div class="izquierda">
+            <input type="checkbox">
+            <div class="info-tarea">
+                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
+                <div class="persona-asignada">Persona asignada</div>
+            </div>
+        </div>
+        <div class="estado">Estado</div>
+        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
+    </div>
+
+    <div class="tarea">
+        <div class="izquierda">
+            <input type="checkbox">
+            <div class="info-tarea">
+                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
+                <div class="persona-asignada">Persona asignada</div>
+            </div>
+        </div>
+        <div class="estado">Estado</div>
+        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
+    </div>
+
+    <div class="tarea">
+        <div class="izquierda">
+            <input type="checkbox">
+            <div class="info-tarea">
+                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
+                <div class="persona-asignada">Persona asignada</div>
+            </div>
+        </div>
+        <div class="estado">Estado</div>
+        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
+    </div>
+</div>
 <br>
 <br>
 <br>
@@ -110,6 +171,47 @@
 <br>
 <br>
 <br>
+<!--Formulario +Agregar Tarea-->
+<div class="formulario-overlay" id="formularioOverlayT">
+    <div class="formulario-container">
+        <button class="cerrar-btn" id="cerrarFormularioBtnT">&times;</button>
+        <h2>Agregar tarea</h2>
+        <form>
+            <label for="nombre">Nombre de la Tarea:</label>
+            <input type="text" id="nombre" name="nombre">
+            <br>
+            <p>Estado:</p>
+            <input type="radio" id="pdt" name="estado" value="pendiente" checked>
+            <label for="persona2">Pendiente</label><br>
+
+            <input type="radio" id="hecho" name="estado" value="hecho">
+            <label for="persona3">Hecho</label><br>
+            <br>
+            <label for="tiempo">Tiempo aproximado: (en horas)</label>
+            <input type="number" id="tiempo" name="tiempo" min="0" step="0.5">
+            <br>
+            <label for="opciones">Frecuencia:</label>
+            <select id="opciones" name="opciones">
+              <option value="1">Una vez a la semana</option>
+              <option value="2">Dos veces a la semana</option>
+              <option value="7">Una vez al día</option>
+            </select>
+
+            <p>Asignar tarea manualmente:</p>
+            <input type="radio" id="persona1" name="tarea" value="Ana">
+            <label for="persona1">Ana</label><br>
+
+            <input type="radio" id="persona2" name="tarea" value="Paula">
+            <label for="persona2">Paula</label><br>
+
+            <input type="radio" id="persona3" name="tarea" value="Carlos">
+            <label for="persona3">Carlos</label><br>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+
+
 <footer>
     <div style="text-align: center;">
         Contáctanos: centroarmoniadomestica@gmail.com

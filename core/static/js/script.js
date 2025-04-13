@@ -27,3 +27,18 @@ if (mostrarBtnLC && cerrarBtnLC && overlayLC) {
         overlayLC.style.display = 'none';
     });
 }
+
+//Overlay Tarea
+const mostrarBtnT = document.getElementById('btn-agregar-tarea')
+const cerrarBtnT = document.getElementById('cerrarFormularioBtnT')
+const overlayT = document.getElementById('formularioOverlayT')
+
+if (mostrarBtnT && cerrarBtnT && overlayT) {
+    mostrarBtnT.addEventListener('click', () => {
+        overlayT.style.display = 'flex';
+    });
+
+    cerrarBtnT.addEventListener('click', () => {
+        overlayT.style.display = 'none';
+    });
+}
