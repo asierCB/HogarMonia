@@ -59,6 +59,53 @@
 </div>
 
 
+
+<!-- Formulario añadir elemento -->
+<div class="formulario-overlay" id="formularioOverlayLC">
+    <div class="formulario-container">
+        <button class="cerrar-btn" id="cerrarFormularioBtnLC">&times;</button>
+        <h2>Agregar Elemento a la lista:</h2>
+        <form>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre">
+            <br>
+            <label for="cantidad">Cantidad:</label>
+            <input type="text" id="cantidad" name="cantidad">
+            <br>
+            <p>Tipo:</p>
+            <div>
+                <input type="checkbox" id="fruta-verdura" name="opciones[]" value="fruta-verdura">
+                <label for="fruta-verdura">Fruta y Verdura</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="carne" name="opciones[]" value="carne">
+                <label for="carne">Carne</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="pescado" name="opciones[]" value="pescado">
+                <label for="pescado">Pescado</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="lacteos" name="opciones[]" value="lacteos">
+                <label for="lacteos">Lacteos</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="congelados" name="opciones[]" value="congelados">
+                <label for="congelados">Congelados</label>
+            </div>
+            <!--<select id="opciones" name="opciones" multiple>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>-->
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
 <br>
 <br>
 <br>
