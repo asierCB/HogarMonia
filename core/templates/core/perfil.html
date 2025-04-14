@@ -24,112 +24,62 @@
             {% if user.is_authenticated %}
             <div class="user-logo">
                 {% if user.profile.foto %}
-                <a href="{% url 'perfil' %}"><img src="{{ user.profile.foto.url }}" alt="user" width="40" height="40"></a>
+                <a href="{% url 'logout' %}"><img src="{{ user.profile.foto.url }}" alt="user" width="40" height="40"></a>
                 {% else %}
-                <a href="{% url 'perfil' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+                <a href="{% url 'logout' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
                 {% endif %}
-            </div>
-            <div class="user-info">
-                <label>Username: {{ user.username }}</label>
             </div>
             {% else %}
             <div class="user-info">
                 <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
             </div>
             {% endif %}
+            <div class="user-info">
+                <label>Username: {{ user.username }}</label>
+            </div>
         </div>
     </div>
 </header>
-<h1 class="titulo">Centro de Armónia Doméstica</h1>
-<h2>¿Qué hacemos?</h2>
-<p>Somos una aplicación web orientada a ofrecer una solución integral para la gestión y coordinación de gastos
-    compartidos en los hogares, ya sean de compañeros de piso o familias. Con el objetivo de facilitar la convivencia
-    y optimizar la organización doméstica</p>
-<h2>¿Quiénes somos?</h2>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+<h2>Información del Usuario:</h2>
+
+<div class="parent">
+    <div class="div1Perfil">
+        <h4>Información Personal:</h4>
+        <p>Username: {{ user.username }}</p>
+        <p>Correo electróncio: {{ user.email }}</p>
+        <p><a href="#" style="color: #ef9071">Cambiar contraseña</a></p>
+    </div>
+    <div class="div2Perfil">
+        <h4 >Foto de perfil:</h4>
+        <img src="{% static 'img/imagen_usuario.png' %}" alt="userPhoto" width="100" height="100">
+        <!--src= "{{ user.profile.foto.url }}"-->
+    </div>
+    <div class="div3Perfil">
+        3
+    </div>
+    <div class="div4Perfil">
+        <h4>Información del Hogar:</h4>
+        <p>Nombre de la casa:</p>
+        <p>Miembros:</p>
+        <ul style="text-indent: 3em">
+            <li>Miembro1</li>
+            <li>Miembro2</li>
+            <li>Miembro3</li>
+        </ul>
+        <p><a href="#" style="color: #ef9071">Añadir miembro al hogar</a></p>
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 <footer>
     <div style="text-align: center;">
         Contáctanos: centroarmoniadomestica@gmail.com

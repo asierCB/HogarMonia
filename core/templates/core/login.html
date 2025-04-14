@@ -17,14 +17,31 @@
 <div class="contenedor-in">
     <div class="formulario-login">
         <h2>Iniciar Sesión</h2>
-        <form>
+        <form method="POST">
+            {% csrf_token %}
             <div class="campo">
-                <label for="usuario">Usuario:</label>
-                <input type="text" id="usuario" name="usuario">
+                <label>Usuario:</label>
+                {{ form.username }}
+                <!--<input type="text" id="usuario" name="usuario">-->
+                {% if form.username.errors %}
+                <div class="error-message">
+                    {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
             </div>
             <div class="campo">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena">
+                <label>Contraseña:</label>
+                {{ form.password }}
+                <!--<input type="password" id="contrasena" name="contrasena">-->
+                {% if form.password.errors %}
+                <div class="error-message">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
             </div>
             <button type="submit">Entrar</button>
             <p style="text-align: center">¿No tienes cuenta? <a href="{% url 'register' %}">Registrate</a></p>

@@ -4,7 +4,7 @@
 <html lang="es" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignIn</title>
+    <title>Register</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- href="../static/style.css">-->
 </head>
 <body class="body-in">
@@ -16,35 +16,40 @@
 <div class="contenedor-in">
     <div class="formulario-login">
         <h2>Registrarse:</h2>
-        <form>
+        <form method="POST">
+            {% csrf_token %}
             <div class="campo">
-                <label for="usuario">Nombre de usuario:</label>
-                <input type="text" id="usuario" name="usuario">
+                <label>Nombre de usuario:</label>
+                {{ form.username }}
+                <!--<input type="text" id="usuario" name="usuario">-->
             </div>
             <div class="campo">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena">
+                <label>Contraseña:</label>
+                {{ form.password1 }}
+                <!--<input type="password" id="contrasena" name="contrasena">-->
             </div>
             <div class="campo">
-                <label for="contrasena">Repetir contraseña:</label>
-                <input type="password" id="contrasena2" name="contrasena2">
+                <label>Repetir contraseña:</label>
+                {{ form.password2 }}
+                <!--<input type="password" id="contrasena2" name="contrasena2">-->
             </div>
             <div class="campo">
-                <label for="email">Correo electrónico:</label>
-                <input type="email" id="email" name="email">
+                <label>Correo electrónico:</label>
+                {{ form.email }}
+                <!--<input type="email" id="email" name="email">-->
             </div>
-            <div class="campo">
+            <!--<div class="campo">
                 <label for="birthdate">Fecha de nacimiento:</label>
                 <input type="date" id="birthdate" name="birthdate">
-            </div>
+            </div>-->
             <div>
-                <input type="checkbox" id="terms" name="terms"> Acepto los <a href="terminos-condiciones.html" style="color: #ef9071">
-                terminos y condiciones de uso</a> y la <a href="privacidad.html" style="color: #ef9071">política de privacidad</a>.
+                {{ form.accept_terms }} <!--<input type="checkbox" id="terms" name="terms">--> Acepto los <a href="{% url 'terms' %}" style="color: #ef9071">
+                terminos y condiciones de uso</a> y la <a href="{% url 'privacy' %}" style="color: #ef9071">política de privacidad</a>.
             </div>
             <br>
             <button type="submit">Registrarse</button>
 
-            <p style="text-align: center">¿Ya tienes cuenta? <a href="login.html" style="color: #ef9071">Inicia sesión</a></p>
+            <p style="text-align: center">¿Ya tienes cuenta? <a href="{% url 'login' %}" style="color: #ef9071">Inicia sesión</a></p>
         </form>
     </div>
 </div>

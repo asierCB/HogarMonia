@@ -21,14 +21,33 @@
             </ul>
         </div>
         <div class="divUser">
-            <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+            {% if user.is_authenticated %}
+            <div class="user-logo">
+                {% if user.profile.foto %}
+                <a href="{% url 'perfil' %}"><img src="{{ user.profile.foto.url }}" alt="user" width="40" height="40"></a>
+                {% else %}
+                <a href="{% url 'perfil' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+                {% endif %}
+            </div>
+            <div class="user-info">
+                <label>Username: {{ user.username }}</label>
+            </div>
+            {% else %}
+            <div class="user-info">
+                <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </header>
 <h1 class="titulo">Lista de la compra conjunta</h1>
 
-<button type="button" id="btn-agregar-lista">
+<button type="button" id="btn-agregar-elemento-lista">
     <strong>+ Agregar elemento</strong>
+</button>
+
+<button type="button" id="btn-agregar-lista">
+    <strong>+ Agregar Lista</strong>
 </button>
 
 
@@ -57,20 +76,44 @@
     <br>
     <br>
 </div>
-
-
-
-<!-- Formulario añadir elemento -->
+<!-- Formulario Crear Lista Nueva -->
 <div class="formulario-overlay" id="formularioOverlayLC">
     <div class="formulario-container">
         <button class="cerrar-btn" id="cerrarFormularioBtnLC">&times;</button>
+        <h2>Agregar Lista:</h2>
+        <form>
+            <label for="nombreNuevaLista"> Nombre nueva lista:</label>
+            <input type="text" id="nombreNuevaLista" name="nombreLista">
+            <br>
+            <br>
+            <button type="submit">Crear Lista</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Formulario añadir elemento -->
+<div class="formulario-overlay" id="formularioOverlayElemLC">
+    <div class="formulario-container">
+        <button class="cerrar-btn" id="cerrarFormularioBtnElemLC">&times;</button>
         <h2>Agregar Elemento a la lista:</h2>
         <form>
-            <label for="nombre">Nombre:</label>
+            <label for="nombreLista">Lista:</label>
+            <select id="nombreLista" name="nombreLista">
+                <option value="Lista1">Lista1</option>
+                <option value="Lista2">Lista2</option>
+            </select><br>
+            <label for="nombre">Nombre Producto:</label>
             <input type="text" id="nombre" name="nombre">
             <br>
             <label for="cantidad">Cantidad:</label>
-            <input type="text" id="cantidad" name="cantidad">
+            <input type="number" id="cantidad" name="cantidad" min="0" step="0.1" style="width: 50px">
+            <select id="unidades" name="unidades">
+                <option value="ud">ud.</option>
+                <option value="bolsas">bolsas</option>
+                <option value="kg">kg</option>
+                <option value="g">gr</option>
+            </select>
             <br>
             <p>Tipo:</p>
             <div>
@@ -96,6 +139,11 @@
             <div>
                 <input type="checkbox" id="congelados" name="opciones[]" value="congelados">
                 <label for="congelados">Congelados</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="precocinados" name="opciones[]" value="precocinados">
+                <label for="precocinados">Precocinados</label>
             </div>
             <!--<select id="opciones" name="opciones" multiple>
               <option value="1">1</option>

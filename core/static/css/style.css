@@ -55,6 +55,9 @@ header {
 
 .divUser{
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     right: 4%;
 }
 
@@ -229,15 +232,45 @@ button[type="submit"]:hover {
 
 }
 
+.lista-acciones{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 100%; /* Ancho mínimo igual al botón */
+    display: none;
+}
+
+.lista-opciones.show {
+    display: block;
+}
+
+.lista-opciones li{
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.lista-opciones li:hover{
+    background-color: #eee;
+}
+
 #btn-randomizar{
     position: fixed;
     bottom: 10%;
     right: 5%;
     background-color: #ef9071;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 5%;
-    height: 10%;
-    border-radius: 50px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    box-sizing: border-box;
+    z-index: 1001;
+    padding: 0;
 }
 
 #btn-randomizar:hover {
@@ -339,8 +372,83 @@ button[type="button"]:hover {
     padding: 1%;
 }
 
-#btn-agregar-lista{
-    position: fixed;
+#btn-agregar-elemento-lista{
     top: 20%;
     right: 3%;
+    margin-bottom: 3%;
+}
+
+#btn-agregar-lista{
+    top: 40%;
+    right: 3%;
+    margin-bottom: 3%;
+}
+
+
+/* Diseño Perfil */
+
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.div1Perfil {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+
+    margin: 5%;
+
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 3%;
+}
+
+.div2Perfil {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 3;
+
+    margin: 5%;
+
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 3%;
+
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.div3Perfil {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 3;
+
+    margin: 5%;
+
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 3%;
+}
+
+.div4Perfil {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+    grid-column-start: 5;
+    grid-row-start: 1;
+
+    margin: 5%;
+
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 3%;
 }
