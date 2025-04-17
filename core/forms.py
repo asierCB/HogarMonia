@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    accept_terms = forms.BooleanField(
-        required=True)
+    accept_terms = forms.BooleanField(required=True)
 
     class Meta:
         model = User

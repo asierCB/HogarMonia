@@ -3,6 +3,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegisterForm
 from .models import GrupoHogar
+#from django.contrib import messages
+
 
 
 # Create your views here.
@@ -39,7 +41,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('tareas')
+            return redirect('perfil')
     else:
         form = AuthenticationForm(request)
     return render(request, 'core/login.html', {'form': form})
@@ -76,6 +78,7 @@ def perfil(request):
                 grupo=grupo,
                 rol='Admin'
             )
+            #messages.success(request, 'El grupo se ha creado correctamente.')
             return redirect('perfil')
         elif accion == 'unirse':
             codigo_grupo = request.POST.get('codigo_hogar')
@@ -88,14 +91,14 @@ def perfil(request):
 
                 if not ya_en_grupo:
                     UsuarioGrupo.objects.create(usuario=request.user, grupo=grupo)
-                    print("Unido con exito")
+                    #messages.success(request, 'Te has unido al grupo correctamente.')
                     return redirect('perfil')
                     # Redirigir o recargar con mensaje de éxito
                 else:
+                    #messages.info(request, 'Ya formas parte de este grupo.')
                     pass
             except GrupoHogar.DoesNotExist:
-                # Mostrar mensaje de error
-                print("Grupo no encontrado")
+                #messages.error(request, 'El código del grupo no es válido.')
                 pass
 
         elif accion == 'salir':
@@ -103,11 +106,17 @@ def perfil(request):
 
             if grupo_usuario:
                 grupo = grupo_usuario.grupo
+                if grupo_usuario.rol == 'Admin' and grupo.usuariogrupo_set.count() > 1:
+                    nuevo_admin=UsuarioGrupo.objects.filter(grupo=grupo,rol='Miembro').exclude(usuario=usuario).order_by('fecha_union').first()
+                    nuevo_admin.rol = 'Admin'
+                    nuevo_admin.save()
+                    #grupo.usuariogrupo_set.filter(rol='Miembro').first().delete()
+
                 grupo_usuario.delete()
 
                 if grupo.usuariogrupo_set.count() == 0:
                     grupo.delete()
-
+                #messages.success(request, 'Has salido del grupo correctamente.')
                 return redirect('perfil')
 
 
