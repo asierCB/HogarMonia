@@ -60,14 +60,45 @@
     </div>
     <div class="div4Perfil">
         <h4>Información del Hogar:</h4>
-        <p>Nombre de la casa:</p>
+        {% if grupo %}
+        <p>Nombre de la casa: {{ grupo.nombre_grupo }}</p>
         <p>Miembros:</p>
         <ul style="text-indent: 3em">
+            {% for miembro in miembros %} <!--grupo.user_set.all %}-->
+            <li>{{ miembro.usuario.username }} - ({{ miembro.rol }})</li>
+            {% endfor %}
+            <!--
             <li>Miembro1</li>
             <li>Miembro2</li>
             <li>Miembro3</li>
+            -->
         </ul>
-        <p><a href="#" style="color: #ef9071">Añadir miembro al hogar</a></p>
+        <p>Código del Grupo: {{ grupo.codigo_invitacion }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="accion" value="salir">
+            <button type="submit" id="btn-salir-grupo" name="btn-salir-grupo">Salir del grupo</button>
+        </form>
+        {% else %}
+        <p>Actualmente no pertenece a ningún hogar.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="accion" value="unirse">
+            <p>Introducir código del hogar para unirse:</p>
+            <p><input type="text" id="codigo_hogar" name="codigo_hogar" maxlength="10"></p>
+            <button type="submit" id="btn-unirse-hogar">Unirse al hogar</button>
+        </form>
+
+        <p>O crealo usted:</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="accion" value="crear">
+            <p>Nombre del hogar:</p>
+            <p><input type="text" id="nombre_grupo" name="nombre_grupo"></p>
+            <button type="submit" id="btn-crear-hogar">Crear Hogar</button>
+        </form>
+        {% endif %}
+
     </div>
 
 </div>
