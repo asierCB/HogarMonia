@@ -7,7 +7,7 @@ import uuid
 
 class GrupoHogar(models.Model):
     id_grupo = models.AutoField(primary_key=True)
-    nombre_grupo = models.CharField(max_length=50)
+    nombre_grupo = models.CharField(max_length=50, null=False, blank=False)
     codigo_invitacion = models.CharField(max_length=10, unique=True, default=uuid.uuid4().hex[:10].upper())
     fecha_creacion = models.DateField(auto_now_add=True)
 

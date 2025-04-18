@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegisterForm
 from .models import GrupoHogar
-#from django.contrib import messages
+from django.contrib import messages
 
 
 
@@ -48,7 +48,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('index')
 
 def perfil(request):
     from django.contrib.auth.models import User
@@ -69,17 +69,22 @@ def perfil(request):
         if accion == 'crear':
             nombre_grupo = request.POST.get('nombre_grupo')
 
-            #Se crea el elemento en la tabla GrupoHogar
-            grupo = GrupoHogar.objects.create(nombre_grupo=nombre_grupo)
+            if nombre_grupo == None or nombre_grupo == '':
+                messages.error(request, 'No se puede crear grupo sin nombre')
+                return redirect('perfil')
 
-            #Se crea el elemento en la tabla UsuarioGrupo
-            UsuarioGrupo.objects.create(
-                usuario=request.user,
-                grupo=grupo,
-                rol='Admin'
-            )
-            #messages.success(request, 'El grupo se ha creado correctamente.')
-            return redirect('perfil')
+            else:
+                #Se crea el elemento en la tabla GrupoHogar
+                grupo = GrupoHogar.objects.create(nombre_grupo=nombre_grupo)
+
+                #Se crea el elemento en la tabla UsuarioGrupo
+                UsuarioGrupo.objects.create(
+                    usuario=request.user,
+                    grupo=grupo,
+                    rol='Admin'
+                )
+                messages.success(request, 'El grupo se ha creado correctamente.')
+                return redirect('perfil')
         elif accion == 'unirse':
             codigo_grupo = request.POST.get('codigo_hogar')
 
@@ -91,14 +96,14 @@ def perfil(request):
 
                 if not ya_en_grupo:
                     UsuarioGrupo.objects.create(usuario=request.user, grupo=grupo)
-                    #messages.success(request, 'Te has unido al grupo correctamente.')
+                    messages.success(request, 'Te has unido al grupo correctamente.')
                     return redirect('perfil')
                     # Redirigir o recargar con mensaje de éxito
                 else:
-                    #messages.info(request, 'Ya formas parte de este grupo.')
+                    messages.info(request, 'Ya formas parte de este grupo.')
                     pass
             except GrupoHogar.DoesNotExist:
-                #messages.error(request, 'El código del grupo no es válido.')
+                messages.error(request, 'El código del grupo no es válido.')
                 pass
 
         elif accion == 'salir':
@@ -108,15 +113,15 @@ def perfil(request):
                 grupo = grupo_usuario.grupo
                 if grupo_usuario.rol == 'Admin' and grupo.usuariogrupo_set.count() > 1:
                     nuevo_admin=UsuarioGrupo.objects.filter(grupo=grupo,rol='Miembro').exclude(usuario=usuario).order_by('fecha_union').first()
-                    nuevo_admin.rol = 'Admin'
-                    nuevo_admin.save()
-                    #grupo.usuariogrupo_set.filter(rol='Miembro').first().delete()
+                    if nuevo_admin:
+                        nuevo_admin.rol = 'Admin'
+                        nuevo_admin.save()
 
                 grupo_usuario.delete()
 
                 if grupo.usuariogrupo_set.count() == 0:
                     grupo.delete()
-                #messages.success(request, 'Has salido del grupo correctamente.')
+                messages.success(request, 'Has salido del grupo correctamente.')
                 return redirect('perfil')
 
 

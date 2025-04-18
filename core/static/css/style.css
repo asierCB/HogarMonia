@@ -455,4 +455,22 @@ button[type="button"]:hover {
     justify-content: center;
 }
 
+/* Mensajes emergentes */
+.alert {
+    padding: 10px;
+    margin: 10px auto;
+    width: 80%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
 

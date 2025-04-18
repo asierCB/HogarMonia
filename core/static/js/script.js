@@ -94,3 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+//Perfil
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(function () {
+        const messages = document.getElementById('messages');
+        if (messages) {
+            messages.style.display = 'none';
+        }
+    }, 3000);
+});
+/*
+    setTimeout(function(){
+        const messages = document.getElementById('messages');
+        if (messages) {
+            messages.style.display = 'none';
+        }
+    }, 300);
+
+    setTimeout(() => {
+        const messages = document.getElementById('messages');
+        if (messages) {
+            messages.style.opacity = '0';
+            setTimeout(() => messages.remove(), 500); // espera que termine el fade-out
+        }
+    }, 200); // tiempo visible: 4 segundos*/
+

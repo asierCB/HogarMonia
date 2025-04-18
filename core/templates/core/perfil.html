@@ -43,7 +43,15 @@
 
 <h2>Información del Usuario:</h2>
 
-<!-- Mensaje para cuando se salga o entre del grupo, lo dejo de momento pdte
+<!-- Mensaje para cuando se salga o entre del grupo, lo dejo de momento pdte-->
+{% if messages %}
+<div id="messages">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+<!--
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -58,6 +66,11 @@
         <p>Username: {{ user.username }}</p>
         <p>Correo electróncio: {{ user.email }}</p>
         <p><a href="#" style="color: #ef9071">Cambiar contraseña</a></p>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Cerrar sesión</button>
+        </form>
     </div>
     <div class="div2Perfil">
         <h4 >Foto de perfil:</h4>
@@ -94,7 +107,7 @@
             {% csrf_token %}
             <input type="hidden" name="accion" value="unirse">
             <p>Introducir código del hogar para unirse:</p>
-            <p><input type="text" id="codigo_hogar" name="codigo_hogar" maxlength="10"></p>
+            <p><input type="text" id="codigo_hogar" name="codigo_hogar" maxlength="10" style="width: 80%"></p>
             <button type="submit" id="btn-unirse-hogar">Unirse al hogar</button>
         </form>
 
@@ -103,7 +116,7 @@
             {% csrf_token %}
             <input type="hidden" name="accion" value="crear">
             <p>Nombre del hogar:</p>
-            <p><input type="text" id="nombre_grupo" name="nombre_grupo"></p>
+            <p><input type="text" id="nombre_grupo" name="nombre_grupo" style="width: 80%"></p>
             <button type="submit" id="btn-crear-hogar">Crear Hogar</button>
         </form>
         {% endif %}
@@ -135,6 +148,8 @@
         </p>
     </div>
 </footer>
-<script src="{% static 'js/script.js' %}"></script> <!-- "../static/script.js"></script>-->
+
+
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
