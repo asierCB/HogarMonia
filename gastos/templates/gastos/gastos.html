@@ -16,7 +16,11 @@
     <div class="divLinks">
       <ul id="header-nav">
         <li class="elementos-header"><a href="{% url 'tareas' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
-        <li class="elementos-header"><a href="{% url 'gastos' %}"><img src="{% static 'img/gastos-clicked.png' %}" height="60"></a></li>
+        {% if grupo and grupo.id_grupo %}
+        <li class="elementos-header"><a href="{% url 'gastos' grupo.id_grupo %}"><img src="{% static 'img/gastos-clicked.png' %}" height="60"></a></li>
+        {% else %}
+        <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos-clicked.png' %}" height="60"></a></li>
+        {% endif %}
         <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
       </ul>
     </div>
@@ -179,54 +183,44 @@
   <div class="formulario-container">
     <button class="cerrar-btn" id="cerrarFormularioBtnG">&times;</button>
     <h2>Agregar gasto</h2>
-    <form>
+    {% if grupo and grupo.id_grupo %}
+      <form method="POST" action="{% url 'gastos' grupo.id_grupo %}" class="formulario-gasto" id="formularioGasto">
+    {% else %}
+      <form method="POST" action="{% url 'gastos_ind' %}" class="formulario-gasto" id="formularioGasto">
+    {% endif %}
+      {% csrf_token %}
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre">
       <br>
       <label for="precio">Precio:</label>
       <input type="text" id="precio" name="precio">
       <br>
-      <p>Participantes:</p>
+      <p>Participantes: </p>
+      {% if miembros %}
+          {% for miembro in miembros %}
       <div>
-        <input type="checkbox" id="opcion1" name="opciones[]" value="valor1">
-        <label for="opcion1">Opción 1</label>
+        <input type="checkbox" id="opcion{{ forloop.counter }}" name="opciones[]" value="{{ forloop.counter }}">
+        <label for="opcion{{ forloop.counter }}">{{ forloop.counter }}. {{ miembro }} </label>
       </div>
+          {% endfor %}
+      {% else %}
+      <p>No members found.</p>
+      {% endif %}
 
-      <div>
-        <input type="checkbox" id="opcion2" name="opciones[]" value="valor2">
-        <label for="opcion2">Opción 2</label>
-      </div>
 
-      <div>
-        <input type="checkbox" id="opcion3" name="opciones[]" value="valor3">
-        <label for="opcion3">Opción 3</label>
-      </div>
-
-      <div>
-        <input type="checkbox" id="opcion4" name="opciones[]" value="valor4">
-        <label for="opcion4">Opción 4</label>
-      </div>
-
-      <div>
-        <input type="checkbox" id="opcion5" name="opciones[]" value="valor5">
-        <label for="opcion5">Opción 5</label>
-      </div>
-      <!--<select id="opciones" name="opciones" multiple>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>-->
 
       <p>Pagado por:</p>
-      <input type="radio" id="persona1" name="pago" value="Ana">
-      <label for="persona1">Ana</label><br>
+      {% if miembros %}
+        {% for miembro in miembros %}
+        <input type="radio" id="persona{{ forloop.counter }}" name="pago" value="{{ miembro }}">
+        <label for="persona{{ forloop.counter }}">{{ miembro }}</label><br>
+        {% endfor %}
+      {% else %}
+        <p>No members found.</p>
+      {% endif %}
 
-      <input type="radio" id="persona2" name="pago" value="Paula">
-      <label for="persona2">Paula</label><br>
-
-      <input type="radio" id="persona3" name="pago" value="Carlos" checked>
-      <label for="persona3">Carlos</label><br>
       <button type="submit">Enviar</button>
+
     </form>
   </div>
 </div>
