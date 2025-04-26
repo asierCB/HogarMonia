@@ -1,3 +1,5 @@
+#models.py
+
 from django.db import models
 from core.models import *
 from django.contrib.auth.models import User
@@ -12,6 +14,7 @@ class Gasto(models.Model):
     pagado_por = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     recurrente = models.BooleanField(default=False)
     participantes = models.ManyToManyField(UsuarioGrupo, related_name='gastos')
+    grupo = models.ForeignKey(GrupoHogar, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.concepto

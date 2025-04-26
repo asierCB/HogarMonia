@@ -51,44 +51,18 @@
   <strong>+ Agregar gasto</strong>
 </button>
 
+{% for gasto in gastos %}
 <div class="contenedor-gastos">
   <br>
   <div class="gasto">
-    <h2 class="gasto-nombre">Nombre del gasto</h2>
+    <h2 class="gasto-nombre">{{ gasto.concepto }}</h2>
     <div class="gasto-detalles">
-      <p class="gasto-cantidad">Precio: ??? €</p>
-      <p class="gasto-participantes">Participantes: </p>
-      <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
+      <p class="gasto-cantidad">Precio: {{ gasto.precio }} €</p>
+      <p class="gasto-participantes">Participantes: {{ gasto.participantes }}</p>
+      <p class="gasto-pagador" style="text-align: right">Pagado por: {{ gasto.pagado_por }}</p>
     </div>
   </div>
-
-  <div class="gasto">
-    <h2 class="gasto-nombre">Nombre del gasto</h2>
-    <div class="gasto-detalles">
-      <p class="gasto-cantidad">Precio: ??? €</p>
-      <p class="gasto-participantes">Participantes: </p>
-      <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
-    </div>
-  </div>
-
-  <div class="gasto">
-    <h2 class="gasto-nombre">Nombre del gasto</h2>
-    <div class="gasto-detalles">
-      <p class="gasto-cantidad">Precio: ??? €</p>
-      <p class="gasto-participantes">Participantes: </p>
-      <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
-    </div>
-  </div>
-
-  <div class="gasto">
-    <h2 class="gasto-nombre">Nombre del gasto</h2>
-    <div class="gasto-detalles">
-      <p class="gasto-cantidad">Precio: ??? €</p>
-      <p class="gasto-participantes">Participantes: </p>
-      <p class="gasto-pagador" style="text-align: right">Pagado por: </p>
-    </div>
-  </div>
-</div>
+{% endfor %}
 
 <div class="deuda-total">
   <h2>Deuda total: </h2>
@@ -189,8 +163,8 @@
       <form method="POST" action="{% url 'gastos_ind' %}" class="formulario-gasto" id="formularioGasto">
     {% endif %}
       {% csrf_token %}
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre">
+      <label for="concepto">Nombre del gasto:</label>
+      <input type="text" id="concepto" name="concepto">
       <br>
       <label for="precio">Precio:</label>
       <input type="text" id="precio" name="precio">
@@ -199,8 +173,8 @@
       {% if miembros %}
           {% for miembro in miembros %}
       <div>
-        <input type="checkbox" id="opcion{{ forloop.counter }}" name="opciones[]" value="{{ forloop.counter }}">
-        <label for="opcion{{ forloop.counter }}">{{ forloop.counter }}. {{ miembro }} </label>
+        <input type="checkbox" id="opcion{{ forloop.counter }}" name="participantes" value="{{ miembro.usuariogrupo_set.first.id }}">
+        <label for="opcion{{ forloop.counter }}">{{ forloop.counter }}. {{ miembro.username }} </label>
       </div>
           {% endfor %}
       {% else %}
@@ -208,16 +182,16 @@
       {% endif %}
 
       <br>
-      <label for="recurrencia"> ¿Es recurrente?</label>
-        <input type="checkbox" id="recurrencia" name="opciones[]">
+      <label for="recurrente"> ¿Es recurrente?</label>
+      <input type="checkbox" id="recurrente" name="recurrente">
       <br>
 
 
       <p>Pagado por:</p>
       {% if miembros %}
         {% for miembro in miembros %}
-        <input type="radio" id="persona{{ forloop.counter }}" name="pago" value="{{ miembro }}">
-        <label for="persona{{ forloop.counter }}">{{ miembro }}</label><br>
+        <input type="radio" id="persona{{ forloop.counter }}" name="pagado_por" value="{{ miembro.id }}">
+        <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
         {% endfor %}
       {% else %}
         <p>No members found.</p>
