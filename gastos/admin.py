@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Gasto
 
-# Register your models here.
+class GastosAdmin(admin.ModelAdmin):
+    list_display = ['concepto', 'precio', 'pagado_por']
+
+admin.site.register(Gasto, GastosAdmin)
