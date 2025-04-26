@@ -61,7 +61,6 @@ Para desarrollar esta aplicación web, se han utilizado las siguientes tecnolog�
     ```bash
     pip install -r requirements.txt
     ```
-    *(Nota: Asegúrate de generar este archivo en la raíz de tu proyecto Django con `pip freeze > requirements.txt` después de instalar todas las dependencias de Django y otras librerías que utilices.)*
 
 5.  **Configurar la Base de Datos PostgreSQL:**
     * Crea una base de datos en PostgreSQL para tu proyecto (puedes usar `psql` o una herramienta como pgAdmin).
