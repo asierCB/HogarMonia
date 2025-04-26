@@ -58,7 +58,12 @@
     <h2 class="gasto-nombre">{{ gasto.concepto }}</h2>
     <div class="gasto-detalles">
       <p class="gasto-cantidad">Precio: {{ gasto.precio }} €</p>
-      <p class="gasto-participantes">Participantes: {{ gasto.participantes }}</p>
+      <p class="gasto-participantes">Participantes:</p>
+      <ul  style="text-indent: 2em">
+      {% for participante in gasto.participantes.all %}
+        <li>{{ participante }}
+      {% endfor %}
+      </ul>
       <p class="gasto-pagador" style="text-align: right">Pagado por: {{ gasto.pagado_por }}</p>
     </div>
   </div>

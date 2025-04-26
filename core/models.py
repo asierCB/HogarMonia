@@ -26,7 +26,7 @@ class UsuarioGrupo(models.Model):
     rol = models.CharField(max_length=20, default='Miembro')
 
     def __str__(self):
-        return f"{self.usuario.username} en {self.grupo.nombre_grupo}"
+        return f"{self.usuario.username}"# en {self.grupo.nombre_grupo}"
 
     class Meta:
         verbose_name = "Usuario en Grupo"
