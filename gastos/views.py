@@ -42,6 +42,22 @@ def miembros_del_grupo(request, grupo_id):
     relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
     miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
 
+    deuda = 0
+    for gasto in Gasto.objects.filter(grupo=grupo):
+        for participante in gasto.participantes.all():
+            if participante.usuario == request.user:
+                deuda += gasto.precio / gasto.participantes.all().count()
+                break
+
+        if request.user == gasto.pagado_por:
+            deuda -= gasto.precio
+
+
+    '''deuda = 0
+    for gasto in Gasto.objects.filter(grupo=grupo):
+        if gasto.participantes.filter(id=request.user.id).exists():
+            deuda += gasto.precio'''
+
     context = {
         'grupo': grupo,
         'miembros': miembros,
@@ -49,6 +65,8 @@ def miembros_del_grupo(request, grupo_id):
         'user': request.user,
 
         'gastos': Gasto.objects.filter(grupo=grupo).order_by('-fecha_gasto'),
+
+        'deuda': deuda,
     }
     return render(request, 'gastos/gastos.html', context)
 
