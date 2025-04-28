@@ -44,7 +44,7 @@
     </div>
   </div>
 </header>
-<!--<h1 class="titulo">Gastos</h1>-->
+
 <h1 class="titulo">Registro de Gastos</h1>
 
 <button type="button" id="btn-agregar-gasto">
@@ -68,8 +68,9 @@
     </div>
   </div>
 {% endfor %}
+</div>
 
-<div class="deuda-total">
+<div class="deuda" id="deuda-total">
   <h2>Deuda total: {{ deuda }} euros.</h2>
 </div>
 <br>

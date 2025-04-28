@@ -299,7 +299,7 @@ button[type="submit"]:hover {
 
 }
 
-.deuda-total{
+#deuda-total{
     width: 40%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 1%;
@@ -309,6 +309,8 @@ button[type="submit"]:hover {
     position: relative;
     right: 2%;
     top: 2%;
+
+
 }
 
 
