@@ -15,12 +15,18 @@
         </div>
         <div class="divLinks">
             <ul id="header-nav">
-                <li class="elementos-header"><a href="{% url 'tareas' %}"><img src="{% static 'img/tareas-clicked.png' %}" height="60"></a></li>
+                {% if grupo and grupo.id_grupo %}
+                <li class="elementos-header"><a href="{% url 'tareas' grupo.id_grupo %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% else %}
+                <li class="elementos-header"><a href="{% url 'tareas_ind' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% endif %}
+
                 {% if grupo and grupo.id_grupo %}
                 <li class="elementos-header"><a href="{% url 'gastos' grupo.id_grupo %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
                 {% else %}
                 <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
                 {% endif %}
+
                 <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
             </ul>
         </div>
@@ -56,17 +62,30 @@
 </button>
 
 
+{% for tarea in tareas %}
 <div class="contenedor-tareas">
     <br>
     <div class="tarea">
         <div class="izquierda">
             <input type="checkbox">
             <div class="info-tarea">
-                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
-                <div class="persona-asignada">Persona asignada</div>
+                <div class="nombre-tarea"><strong>{{ tarea.nombre_tareas }}</strong></div>
+                {% if tareas.participantes.all.length == 1 %}
+                <div class="persona-asignada">Persona asignada:
+                {% else %}
+                <div class="persona-asignada">Personas asignadas:
+                {% endif %}
+                    {% for participante in tarea.participantes.all %}
+                    {{ participante }}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="estado">Estado:</div>
+        {% if tarea.completada %}
+            <div class="estado">Estado: Hecho</div>
+        {% else %}
+            <div class="estado">Estado: Pendiente</div>
+        {% endif %}
         <div class="acciones">
             <button type="button" class="opciones-tareas">...</button>
             <ul class="lista-acciones">
@@ -75,7 +94,10 @@
             </ul>
         </div>
     </div>
-
+{% endfor %}
+</div>
+<div class="contenedor-tareas">
+    <br>
     <div class="tarea">
         <div class="izquierda">
             <input type="checkbox">
@@ -201,44 +223,50 @@
     <div class="formulario-container">
         <button class="cerrar-btn" id="cerrarFormularioBtnT">&times;</button>
         <h2>Agregar tarea</h2>
-        <form>
-            <label for="nombre">Nombre de la Tarea:</label>
-            <input type="text" id="nombre" name="nombre">
-            <br>
-            <p style="text-indent: 0">Estado:</p>
-            <input type="radio" id="pdt" name="estado" value="pendiente" checked>
-            <label for="persona2">Pendiente</label><br>
+        {% if grupo and grupo.id_grupo %}
+            <form method="POST" action="{% url 'tareas' grupo.id_grupo %}" class="formulario-tarea" id="formularioTarea">
+        {% else %}
+            <form method="POST" action="{% url 'tareas_ind' %}" class="formulario-tarea" id="formularioTarea">
+        {% endif %}
+            {% csrf_token %}
+                <label for="nombre">Nombre de la Tarea:</label>
+                <input type="text" id="nombre" name="nombre">
+                <br>
+                <br>
+                <label for="fecha_limite">Fecha límite:</label>
+                <input type="date" id="fecha_limite" name="fecha_limite">
+                <br>
+                <br>
+                <label for="periodica">¿Es periódica?:</label>
+                <input type="checkbox" id="periodica" name="periodica">
+                <p style="text-indent: 0">Estado:</p>
+                <input type="radio" id="pdt" name="estado" value="pendiente" checked>
+                <label for="pdt">Pendiente</label><br>
 
-            <input type="radio" id="hecho" name="estado" value="hecho">
-            <label for="persona3">Hecho</label><br>
-            <br>
-            <label for="tiempo">Tiempo aproximado: (en horas)</label>
-            <input type="number" id="tiempo" name="tiempo" min="0" step="0.5">
-            <br>
-            <br>
-            <label for="npersonas">Personas necesarias:</label>
-            <input type="number" id="npersonas" name="npersonas" min="0" step="1">
-            <br>
-            <br>
-            <label for="opciones">Frecuencia:</label>
-            <br>
-            <select id="opciones" name="opciones">
-              <option value="0">Añadir solo esta vez</option>
-              <option value="1">Una vez a la semana</option>
-              <option value="2">Dos veces a la semana</option>
-              <option value="7">Una vez al día</option>
-            </select>
+                <input type="radio" id="hecho" name="estado" value="hecho">
+                <label for="hecho">Hecho</label><br>
+                <br>
+                <label for="tiempo">Tiempo aproximado: (en horas)</label>
+                <input type="number" id="tiempo" name="tiempo" min="0" step="0.5">
+                <br>
+                <br>
+                <label for="npersonas">Personas necesarias:</label>
+                <input type="number" id="npersonas" name="npersonas" min="0" step="1">
+                <br>
+                <br>
+                <label for="frecuencia">Frecuencia (veces a la semana):</label>
+                <input type="number" id="frecuencia" name="frecuencia" min="1" step="1">
 
-            <p style="text-indent: 0">Asignar tarea manualmente:</p>
-            <input type="radio" id="persona1" name="tarea" value="Ana">
-            <label for="persona1">Ana</label><br>
-
-            <input type="radio" id="persona2" name="tarea" value="Paula">
-            <label for="persona2">Paula</label><br>
-
-            <input type="radio" id="persona3" name="tarea" value="Carlos">
-            <label for="persona3">Carlos</label><br>
-            <button type="submit">Enviar</button>
+                <p style="text-indent: 0">Asignar tarea manualmente:</p>
+                {% if miembros %}
+                    {% for miembro in miembros %}
+                    <input type="checkbox" id="persona{{ forloop.counter }}" name="miembro_tarea" value="{{ miembro.id }}">
+                    <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
+                    {% endfor %}
+                {% else %}
+                    <p>No members found.</p>
+                {% endif %}
+                <button type="submit">Enviar</button>
         </form>
     </div>
 </div>

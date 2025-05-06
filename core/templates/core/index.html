@@ -15,12 +15,18 @@
         </div>
         <div class="divLinks">
             <ul id="header-nav">
-                <li class="elementos-header"><a href="{% url 'tareas' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% if grupo and grupo.id_grupo %}
+                <li class="elementos-header"><a href="{% url 'tareas' grupo.id_grupo %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% else %}
+                <li class="elementos-header"><a href="{% url 'tareas_ind' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% endif %}
+
                 {% if grupo and grupo.id_grupo %}
                 <li class="elementos-header"><a href="{% url 'gastos' grupo.id_grupo %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
                 {% else %}
                 <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
                 {% endif %}
+
                 <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
             </ul>
         </div>

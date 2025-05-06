@@ -13,7 +13,12 @@ def gastos(request):
     groups = GrupoHogar.objects.all()
     UserGroup = UsuarioGrupo.objects.all()
 
-    context = {'User': users, 'GrupoHogar': groups, 'UsuarioGrupo': UserGroup}
+    context = {
+        'User': users,
+        'GrupoHogar': groups,
+        'UsuarioGrupo': UserGroup
+    }
+
     return render(request, 'gastos/gastos.html', context)
 
 
@@ -69,40 +74,3 @@ def miembros_del_grupo(request, grupo_id):
         'deuda': deuda,
     }
     return render(request, 'gastos/gastos.html', context)
-
-'''def gastos_view(request, id_grupo=None):
-    if request.method == "POST":
-        concepto = request.POST.get('concepto')
-        precio = request.POST.get('precio')
-        pagado_por_id = request.POST.get('pagado_por')
-        recurrente = request.POST.get('recurrente') == 'on'
-        participantes_ids = request.POST.getlist('participantes')
-
-        print("----- DATOS RECIBIDOS EN EL POST -----")
-        print("Concepto:", concepto)
-        print("Precio:", precio)
-        print("Pagado por (ID):", pagado_por_id)
-        print("Recurrente:", recurrente)
-        print("Participantes IDs:", participantes_ids)
-
-        if concepto and precio and pagado_por_id:
-            # Creamos el gasto
-            gasto = Gasto.objects.create(
-                concepto=concepto,
-                precio=precio,
-                pagado_por=User.objects.get(id=pagado_por_id),
-                recurrente=recurrente
-            )
-
-            # Añadimos los participantes
-            participantes_objs = UsuarioGrupo.objects.filter(id__in=participantes_ids)
-            gasto.participantes.set(participantes_objs)
-
-            gasto.save()
-
-            return redirect('gastos', id_grupo=id_grupo)  # Redirige a donde quieras tras guardar
-
-    # Si es GET o algo va mal
-    # Aquí tu código para mostrar el formulario con los miembros, como ya tienes
-    miembros = User.objects.filter(usuariogrupo__id_grupo=id_grupo)
-    return render(request, 'gastos/gastos.html', {'miembros': miembros})'''

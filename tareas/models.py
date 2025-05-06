@@ -1,3 +1,24 @@
+from django.contrib.auth.models import User
 from django.db import models
+from core.models import *
 
 # Create your models here.
+
+class Tareas(models.Model):
+    id_tareas = models.AutoField(primary_key=True)
+    nombre_tareas = models.CharField(max_length=50)
+    fecha_limite = models.DateField(auto_now_add=False)
+    es_periodica = models.BooleanField(default=False)
+    frecuencia = models.IntegerField(default=1)
+    completada = models.BooleanField(default=False)
+    tiempo_estimado = models.FloatField(default=0.5, )
+    participantes = models.ManyToManyField(UsuarioGrupo, related_name='tareas', blank=True, null=True)
+    grupo = models.ForeignKey(GrupoHogar, on_delete=models.DO_NOTHING)
+    npersonas = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.nombre_tareas
+
+    class Meta:
+        verbose_name = "Tarea"
+        verbose_name_plural = "Tareas"
