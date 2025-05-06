@@ -57,11 +57,10 @@ def miembros_del_grupo(request, grupo_id):
         if request.user == gasto.pagado_por:
             deuda -= gasto.precio
 
+    deuda = round(deuda, 2)
 
-    '''deuda = 0
-    for gasto in Gasto.objects.filter(grupo=grupo):
-        if gasto.participantes.filter(id=request.user.id).exists():
-            deuda += gasto.precio'''
+
+
 
     context = {
         'grupo': grupo,

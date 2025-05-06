@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class TareaForm(forms.ModelForm):
     class Meta:
         model = Tareas
-        fields = ['nombre_tareas', 'completada', 'tiempo_estimado', 'frecuencia', 'participantes']  # Campos del formulario
+        fields = ['nombre_tareas', 'fecha_limite', 'es_periodica','completada', 'tiempo_estimado', 'npersonas', 'frecuencia', 'participantes']  # Campos del formulario
 
     def __init__(self, *args, **kwargs):
         grupo = kwargs.pop('grupo', None)  # sacamos el grupo del constructor
