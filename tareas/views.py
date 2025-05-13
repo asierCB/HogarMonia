@@ -75,3 +75,42 @@ def tareas_grupo(request, grupo_id):
 
     }
     return render(request, 'tareas/tareas.html', context)
+
+@login_required
+def edit_tarea(request, tarea_id,):
+    tarea = get_object_or_404(Tareas, id_tareas=tarea_id)
+    grupo = tarea.grupo
+
+    # Permission check
+    is_member = UsuarioGrupo.objects.filter(usuario=request.user, grupo=tarea.grupo).exists()
+    if not is_member:
+        return HttpResponseForbidden("You do not have permission to edit this tarea.")
+
+    # Handle form submission
+    if request.method == 'POST':
+        form = TareaForm(request.POST, instance=tarea, grupo=grupo)
+        if form.is_valid():
+            tarea2 = form.save(commit=False)
+            tarea2.grupo = grupo  # If you have a grupo field in your Gasto model
+            tarea2.save()
+            form.save_m2m()  # Important to save ManyToMany relationships
+            return redirect('tareas', grupo_id=grupo.id_grupo)
+    else:
+        form = TareaForm(instance=tarea, grupo=grupo)
+
+    # Get members for display
+    relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
+    miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
+
+    context = {
+        'grupo': grupo,
+        'miembros': miembros,
+        'form': form,
+        'user': request.user,
+
+        'tarea': tarea,  # .order_by('-fecha_gasto'),
+
+    }
+
+    return render(request, 'tareas/edit-tarea.html', context)
+

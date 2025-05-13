@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarea</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- href="../static/style.css">-->
+</head>
+<body>
+<header>
+    <div class="designHeader">
+        <div class="divLogo">
+            <a href="{% url 'index' %}"><img src="{% static 'img/logo.jpg' %}" alt="logo" width="80" height="80"></a>
+        </div>
+        <div class="divLinks">
+            <ul id="header-nav">
+                {% if grupo and grupo.id_grupo %}
+                <li class="elementos-header"><a href="{% url 'tareas' grupo.id_grupo %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% else %}
+                <li class="elementos-header"><a href="{% url 'tareas_ind' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% endif %}
+
+                {% if grupo and grupo.id_grupo %}
+                <li class="elementos-header"><a href="{% url 'gastos' grupo.id_grupo %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
+                {% else %}
+                <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
+                {% endif %}
+
+                <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
+            </ul>
+        </div>
+        <div class="divUser">
+            {% if user.is_authenticated %}
+            <div class="user-logo">
+                {% if user.profile.foto %}
+                <a href="{% url 'perfil' %}"><img src="{{ user.profile.foto.url }}" alt="user" width="40" height="40"></a>
+                {% else %}
+                <a href="{% url 'perfil' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+                {% endif %}
+            </div>
+            <div class="user-info">
+                <label>Username: {{ user.username }}</label>
+            </div>
+            {% else %}
+            <div class="user-info">
+                <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!--Formulario Editar Tarea-->
+<h1>Editar Tarea</h1>
+<div class="formularioEditarTarea" id="formularioEditarTarea">
+    <div class="formulario-container">
+        <!--<button class="cerrar-btn" id="cerrarFormularioBtnET">&times;</button>-->
+        <h2>{{ tarea.nombre_tareas }}</h2>
+        <form method="POST" action="{% url 'tareas_edit_tarea' tarea.id_tareas %}" class="formulario-tarea" id="formularioEditTarea">
+            {% csrf_token %}
+            <div>
+                <label>Nombre de la Tarea:</label><br>
+                {{ form.nombre_tareas }}
+            </div>
+
+            <div>
+                <label>Fecha límite:</label><br>
+                {{ form.fecha_limite }}
+            </div>
+
+            <div>
+                <label>¿Es periódica?:</label><br>
+                {{ form.es_periodica }}
+            </div>
+
+            <div>
+                <label>Estado:</label><br>
+                {{ form.completada }}
+            </div>
+
+            <div>
+                <label>Tiempo aproximado:</label><br>
+                {{ form.tiempo_estimado }}
+            </div>
+
+            <div>
+                <label>Personas necesarias:</label><br>
+                {{ form.npersonas }}
+            </div>
+
+            <div>
+                <label>Frecuencia (veces a la semana):</label><br>
+                {{ form.frecuencia }}
+            </div>
+
+            <div>
+                <label>Participantes: </label><br>
+                {{ form.participantes }}
+            </div>
+            <button type="submit">Actualizar Tarea</button>
+        </form>
+
+            <!--<form method="POST" action="{% url 'tareas_edit_tarea' tarea.id_tareas %}" class="formulario-tarea" id="formularioEditTarea">
+                {% csrf_token %}
+                <label for="nombreEdit">Nombre de la Tarea:</label>
+                <input type="text" id="nombreEdit" name="nombre_tareas" value="{{ tarea.nombre_tareas }}">
+
+                <br><br>
+                <label for="fecha_limiteEdit">Fecha límite:</label>
+                <input type="date" id="fecha_limiteEdit" name="fecha_limite" value="{{ tarea.fecha_limite }}">
+
+                <br><br>
+                <label for="periodicaEdit">¿Es periódica?:</label>
+                <input type="checkbox" id="periodicaEdit" name="es_periodica">
+
+
+                <p style="text-indent: 0">Estado:</p>
+                {% if tarea.completada %}
+                    <input type="radio" id="pdtEdit" name="completada" value="false">
+                    <label for="pdtEdit">Pendiente</label><br>
+
+                    <input type="radio" id="hechoEdit" name="completada" value="true" checked>
+                    <label for="hechoEdit">Hecho</label><br>
+                {% else %}
+                    <input type="radio" id="pdtEdit" name="completada" value="false" checked>
+                    <label for="pdtEdit">Pendiente</label><br>
+
+                    <input type="radio" id="hechoEdit" name="completada" value="true">
+                    <label for="hechoEdit">Hecho</label><br>
+                {% endif %}
+
+                <br>
+                <label for="tiempoEdit">Tiempo aproximado: (en horas)</label>
+                <input type="number" id="tiempoEdit" name="tiempo_estimado" min="0" step="0.5" value="{{ tarea.tiempo_estimado }}">
+
+                <br><br>
+                <label for="npersonasEdit">Personas necesarias:</label>
+                <input type="number" id="npersonasEdit" name="npersonas" min="0" step="1" value="{{ tarea.npersonas }}">
+
+                <br><br>
+                <label for="frecuenciaEdit">Frecuencia (veces a la semana):</label>
+                <input type="number" id="frecuenciaEdit" name="frecuencia" min="1" step="1" value="{{ tarea.frecuencia }}">
+
+                <p style="text-indent: 0">Asignar tarea manualmente:</p>
+                {% if miembros %}
+                    {% for miembro in miembros %}
+                        {% if miembro in tarea.participantes.all %}
+                            <input type="checkbox" id="persona{{ forloop.counter }}Edit" name="participantes" value="{{ miembro.id }}" checked>
+                            <label for="persona{{ forloop.counter }}Edit">{{ miembro.username }}</label><br>
+                        {% else %}
+                            <input type="checkbox" id="persona{{ forloop.counter }}Edit" name="participantes" value="{{ miembro.id }}">
+                            <label for="persona{{ forloop.counter }}Edit">{{ miembro.username }}</label><br>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No members found.</p>
+                {% endif %}
+                <br>
+                <button type="submit">Actualizar Tarea</button>
+
+            </form>-->
+    </div>
+</div>
+
+
+<footer>
+    <div style="text-align: center;">
+        Contáctanos: centroarmoniadomestica@gmail.com
+    </div>
+
+    <div style="height: 1px;  background-color: #ccc;  margin: 10px auto;  width: 75%;"></div> <!--separator line-->
+
+    <div class="copyright">
+        <p style="font-size: 12px">&copy; 2025 Centro de Armonía Doméstica. Todos los derechos reservados.</p>
+        <p>
+            <a href="{% url 'terms' %}" style="color: #353b53">Términos y condiciones</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'privacy' %}" style="color: #353b53">Privacidad</a>
+        </p>
+    </div>
+</footer>
+<script src="{% static 'js/script.js' %}"></script> <!-- "../static/script.js"></script>-->
+</body>
+</html>

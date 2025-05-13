@@ -3,6 +3,6 @@ from .models import Tareas
 
 # Register your models here.
 class TareasAdmin(admin.ModelAdmin):
-    list_display = ['nombre_tareas', 'fecha_limite', 'es_periodica']
+    list_display = ['id_tareas','nombre_tareas', 'fecha_limite', 'es_periodica']
 
 admin.site.register(Tareas, TareasAdmin)

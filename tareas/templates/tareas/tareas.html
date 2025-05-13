@@ -62,12 +62,13 @@
 </button>
 
 
-{% for tarea in tareas %}
-<div class="contenedor-tareas">
+
+<div class="contenedor-tareas" id="contenedor-tareas">
     <br>
+    {% for tarea in tareas %}
     <div class="tarea">
         <div class="izquierda">
-            <input type="checkbox">
+            <input type="checkbox" value="{{ tarea.id_tareas }}">
             <div class="info-tarea">
                 <div class="nombre-tarea"><strong>{{ tarea.nombre_tareas }}</strong></div>
                 {% if tareas.participantes.all.length == 1 %}
@@ -86,138 +87,103 @@
         {% else %}
             <div class="estado">Estado: Pendiente</div>
         {% endif %}
+        <form type="GET">
         <div class="acciones">
-            <button type="button" class="opciones-tareas">...</button>
-            <ul class="lista-acciones">
+            <a href="{% url 'tareas_edit_tarea' tarea.id_tareas %}"><button type="button" class="opciones-tareas" data-id="{{ tarea.id_tareas }}" id="btn-editar-{{ tarea.id_tareas }}">...</button></a>
+            <input type="hidden" name="id_tareas" value="{{ tarea.id_tareas }}">
+            <!--<ul class="lista-acciones">
                 <li data-value="eliminar">Eliminar</li>
                 <li data-value="editar">Editar</li>
-            </ul>
+            </ul>-->
         </div>
+        </form>
     </div>
-{% endfor %}
+    {% endfor %}
 </div>
-<div class="contenedor-tareas">
     <br>
-    <div class="tarea">
-        <div class="izquierda">
-            <input type="checkbox">
-            <div class="info-tarea">
-                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
-                <div class="persona-asignada">Persona asignada</div>
-            </div>
-        </div>
-        <div class="estado">Estado:</div>
-        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
-    </div>
-
-    <div class="tarea">
-        <div class="izquierda">
-            <input type="checkbox">
-            <div class="info-tarea">
-                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
-                <div class="persona-asignada">Persona asignada</div>
-            </div>
-        </div>
-        <div class="estado">Estado:</div>
-        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
-    </div>
-
-    <div class="tarea">
-        <div class="izquierda">
-            <input type="checkbox">
-            <div class="info-tarea">
-                <div class="nombre-tarea"><strong>Nombre de la tarea</strong></div>
-                <div class="persona-asignada">Persona asignada</div>
-            </div>
-        </div>
-        <div class="estado">Estado:</div>
-        <div class="acciones"><button type="button" class="opciones-tareas">...</button></div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 <!--Formulario +Agregar Tarea-->
 <div class="formulario-overlay" id="formularioOverlayT">
     <div class="formulario-container">
@@ -269,10 +235,15 @@
                 {% else %}
                     <p>No members found.</p>
                 {% endif %}
+                <br>
                 <button type="submit">Enviar</button>
         </form>
     </div>
 </div>
+
+
+
+
 
 
 
