@@ -88,6 +88,10 @@ def edit_tarea(request, tarea_id,):
 
     # Handle form submission
     if request.method == 'POST':
+        if request.POST.get('action') == 'delete':
+            tarea.delete()
+            return redirect('tareas', grupo_id=grupo.id_grupo)
+
         form = TareaForm(request.POST, instance=tarea, grupo=grupo)
         if form.is_valid():
             tarea2 = form.save(commit=False)
@@ -102,6 +106,12 @@ def edit_tarea(request, tarea_id,):
     relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
     miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
 
+    #participantes_ids = tarea.participantes.values_list('id', flat=True)
+    # Obtener los usuarios (no UsuarioGrupo) participantes de la tarea
+    participantes_usuario_ids = list(
+        tarea.participantes.values_list('usuario__id', flat=True)
+    )
+
     context = {
         'grupo': grupo,
         'miembros': miembros,
@@ -109,7 +119,7 @@ def edit_tarea(request, tarea_id,):
         'user': request.user,
 
         'tarea': tarea,  # .order_by('-fecha_gasto'),
-
+        'participantes_usuario_ids': participantes_usuario_ids,
     }
 
     return render(request, 'tareas/edit-tarea.html', context)

@@ -60,109 +60,63 @@
         <form method="POST" action="{% url 'tareas_edit_tarea' tarea.id_tareas %}" class="formulario-tarea" id="formularioEditTarea">
             {% csrf_token %}
             <div>
-                <label>Nombre de la Tarea:</label><br>
+                <label>Nombre de la Tarea:</label>
                 {{ form.nombre_tareas }}
             </div>
-
+                <br>
             <div>
-                <label>Fecha límite:</label><br>
+                <label>Fecha límite:</label>
                 {{ form.fecha_limite }}
             </div>
-
+                <br>
             <div>
-                <label>¿Es periódica?:</label><br>
+                <label>¿Es periódica?:</label>
                 {{ form.es_periodica }}
             </div>
-
+                <br>
             <div>
-                <label>Estado:</label><br>
+                <label>Estado:</label>
                 {{ form.completada }}
             </div>
-
+                <br>
             <div>
-                <label>Tiempo aproximado:</label><br>
+                <label>Tiempo aproximado:</label>
                 {{ form.tiempo_estimado }}
             </div>
-
+                <br>
             <div>
-                <label>Personas necesarias:</label><br>
+                <label>Personas necesarias:</label>
                 {{ form.npersonas }}
             </div>
-
+                <br>
             <div>
-                <label>Frecuencia (veces a la semana):</label><br>
+                <label>Frecuencia(veces semana):</label>
                 {{ form.frecuencia }}
             </div>
-
-            <div>
-                <label>Participantes: </label><br>
-                {{ form.participantes }}
+                <br>
+            <p style="text-indent: 0">Participantes:</p>
+            {% if miembros %}
+                {% for miembro in miembros %}
+                    {% if miembro.id in participantes_usuario_ids %}
+                        <input type="checkbox" id="persona{{ forloop.counter }}" name="participantes" value="{{ miembro.id }}" checked>
+                    {% else %}
+                        <input type="checkbox" id="persona{{ forloop.counter }}" name="participantes" value="{{ miembro.id }}">
+                    {% endif %}
+                    <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
+                {% endfor %}
+            {% else %}
+                <p>No members found.</p>
+            {% endif %}
+            <br>
+            <div style="display: flex; justify-content: space-between; align-items: center">
+                <button type="submit" name="action" value="delete" style="width: 40%" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?');">Eliminar</button>
+                <button type="submit" name="action" value="update" style="width: 40%">Actualizar Tarea</button>
             </div>
-            <button type="submit">Actualizar Tarea</button>
         </form>
-
-            <!--<form method="POST" action="{% url 'tareas_edit_tarea' tarea.id_tareas %}" class="formulario-tarea" id="formularioEditTarea">
-                {% csrf_token %}
-                <label for="nombreEdit">Nombre de la Tarea:</label>
-                <input type="text" id="nombreEdit" name="nombre_tareas" value="{{ tarea.nombre_tareas }}">
-
-                <br><br>
-                <label for="fecha_limiteEdit">Fecha límite:</label>
-                <input type="date" id="fecha_limiteEdit" name="fecha_limite" value="{{ tarea.fecha_limite }}">
-
-                <br><br>
-                <label for="periodicaEdit">¿Es periódica?:</label>
-                <input type="checkbox" id="periodicaEdit" name="es_periodica">
-
-
-                <p style="text-indent: 0">Estado:</p>
-                {% if tarea.completada %}
-                    <input type="radio" id="pdtEdit" name="completada" value="false">
-                    <label for="pdtEdit">Pendiente</label><br>
-
-                    <input type="radio" id="hechoEdit" name="completada" value="true" checked>
-                    <label for="hechoEdit">Hecho</label><br>
-                {% else %}
-                    <input type="radio" id="pdtEdit" name="completada" value="false" checked>
-                    <label for="pdtEdit">Pendiente</label><br>
-
-                    <input type="radio" id="hechoEdit" name="completada" value="true">
-                    <label for="hechoEdit">Hecho</label><br>
-                {% endif %}
-
-                <br>
-                <label for="tiempoEdit">Tiempo aproximado: (en horas)</label>
-                <input type="number" id="tiempoEdit" name="tiempo_estimado" min="0" step="0.5" value="{{ tarea.tiempo_estimado }}">
-
-                <br><br>
-                <label for="npersonasEdit">Personas necesarias:</label>
-                <input type="number" id="npersonasEdit" name="npersonas" min="0" step="1" value="{{ tarea.npersonas }}">
-
-                <br><br>
-                <label for="frecuenciaEdit">Frecuencia (veces a la semana):</label>
-                <input type="number" id="frecuenciaEdit" name="frecuencia" min="1" step="1" value="{{ tarea.frecuencia }}">
-
-                <p style="text-indent: 0">Asignar tarea manualmente:</p>
-                {% if miembros %}
-                    {% for miembro in miembros %}
-                        {% if miembro in tarea.participantes.all %}
-                            <input type="checkbox" id="persona{{ forloop.counter }}Edit" name="participantes" value="{{ miembro.id }}" checked>
-                            <label for="persona{{ forloop.counter }}Edit">{{ miembro.username }}</label><br>
-                        {% else %}
-                            <input type="checkbox" id="persona{{ forloop.counter }}Edit" name="participantes" value="{{ miembro.id }}">
-                            <label for="persona{{ forloop.counter }}Edit">{{ miembro.username }}</label><br>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <p>No members found.</p>
-                {% endif %}
-                <br>
-                <button type="submit">Actualizar Tarea</button>
-
-            </form>-->
     </div>
 </div>
 
+<br>
 
 <footer>
     <div style="text-align: center;">
