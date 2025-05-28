@@ -92,7 +92,26 @@ p {
     text-indent: 2em; /* Sangría de 2 veces el tamaño de la fuente del elemento */
 }
 
+/* Diseño index */
+.index-decor{
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
 
+.img_index{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+}
 
 
 
@@ -347,7 +366,7 @@ button[type="button"]:hover {
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
-    width: 30%;
+    width: 35%;
     position: relative;
 }
 .cerrar-btn {
@@ -391,6 +410,33 @@ button[type="button"]:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 1%;
 }
+
+.elemento-lista-compra{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    height: 10%;
+    margin-bottom: 2%;
+}
+
+.elemento-lista-checkbox{
+    width: 5%;
+}
+
+.elemento-lista-nombre{
+    width: 50%;
+}
+
+.elemento-lista-cantidad{
+    width: 20%;
+}
+
+.elemento-lista-tipo{
+    width: 20%;
+}
+
 
 #btn-agregar-elemento-lista{
     top: 20%;

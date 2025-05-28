@@ -60,43 +60,69 @@
     <strong>+ Agregar Lista</strong>
 </button>
 
-
-<div class="contenedor-lista-compra">
-    <h2>Lista de la compra conjunta</h2>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-</div>
+{% if listas %}
+    {% for lista in listas %}
+        <div class="contenedor-lista-compra">
+            <h2>{{ lista.nombre_lista }}</h2>
+            {% if productos %}
+                <div class="elemento-lista-compra">
+                    <div class="elemento-lista-checkbox">
+                    </div>
+                    <div class="elemento-lista-nombre">
+                        <p><strong>Producto</strong></p>
+                    </div>
+                    <div class="elemento-lista-cantidad">
+                        <p><strong>Cantidad</strong></p>
+                    </div>
+                    <div class="elemento-lista-tipo">
+                        <p><strong>Tipo</strong></p>
+                    </div>
+                </div>
+                {% for producto in productos %}
+                    {% if producto.id_lista == lista %}
+                        <div class="elemento-lista-compra">
+                            <div class="elemento-lista-checkbox">
+                                <input type="checkbox" value="{{ producto.id_producto }}">
+                            </div>
+                            <div class="elemento-lista-nombre">
+                                <p>{{ producto.nombre_producto }}</p>
+                            </div>
+                            <div class="elemento-lista-cantidad">
+                                <p>{{ producto.cantidad }} {{ producto.unidades }}</p>
+                            </div>
+                            <div class="elemento-lista-tipo">
+                                <p>{{ producto.tipo }}</p>
+                            </div>
+                        <!--<div class="elemento-lista-compra-btn">
+                            <button type="button" id="btn-eliminar-elemento-lista" data-id="{{ producto.id }}">
+                                <strong>X</strong>
+                            </button>
+                        </div>-->
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            <button type="button" id="btn-eliminar-lista" data-id="{{ lista.id_lista }}">Comprado</button>
+            {% else %}
+                <p>No hay elementos en esta lista.</p>
+            {% endif %}
+        </div><br>
+    {% endfor %}
+{% else %}
+    <p>No hay listas creadas.</p>
+{% endif %}
 <!-- Formulario Crear Lista Nueva -->
 <div class="formulario-overlay" id="formularioOverlayLC">
     <div class="formulario-container">
         <button class="cerrar-btn" id="cerrarFormularioBtnLC">&times;</button>
         <h2>Agregar Lista:</h2>
-        <form>
-            <label for="nombreNuevaLista"> Nombre nueva lista:</label>
-            <input type="text" id="nombreNuevaLista" name="nombreLista">
+        <form method="post">
+            {% csrf_token %}
+            <!--<label for="id_nombre_lista">Nombre Lista:</label>
+            <input type="text" id="id_nombre_lista" name="nombre_lista">
             <br>
-            <br>
-            <button type="submit">Crear Lista</button>
+            <br>-->
+            {{ form_lista.as_p }}
+            <button type="submit" name="nueva_lista">Crear Lista</button>
         </form>
     </div>
 </div>
@@ -107,60 +133,49 @@
     <div class="formulario-container">
         <button class="cerrar-btn" id="cerrarFormularioBtnElemLC">&times;</button>
         <h2>Agregar Elemento a la lista:</h2>
-        <form>
-            <label for="nombreLista">Lista:</label>
-            <select id="nombreLista" name="nombreLista">
-                <option value="Lista1">Lista1</option>
-                <option value="Lista2">Lista2</option>
-            </select><br>
-            <label for="nombre">Nombre Producto:</label>
-            <input type="text" id="nombre" name="nombre">
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Lista selector usando Django form -->
+            <div class="form-group">
+                <label for="{{ form_producto.id_lista.id_for_label }}">Lista:</label>
+                {{ form_producto.id_lista }}
+                {% if form_producto.id_lista.errors %}
+                <div class="error">{{ form_producto.id_lista.errors.0 }}</div>
+                {% endif %}
+            </div><br>
+
+            <!-- Nombre del producto -->
+            <div class="form-group">
+                <label for="{{ form_producto.nombre_producto.id_for_label }}">Nombre Producto:</label>
+                {{ form_producto.nombre_producto }}
+                {% if form_producto.nombre_producto.errors %}
+                <div class="error">{{ form_producto.nombre_producto.errors.0 }}</div>
+                {% endif %}
+            </div><br>
+
+            <!-- Cantidad y unidades -->
+            <div class="form-group">
+                <label for="{{ form_producto.cantidad.id_for_label }}">Cantidad:</label>
+                {{ form_producto.cantidad }}
+                {{ form_producto.unidades }}
+                {% if form_producto.cantidad.errors %}
+                <div class="error">{{ form_producto.cantidad.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Tipos (checkboxes) -->
+            <div class="form-group">
+                <p>Tipo:</p>
+                {% for checkbox in form_producto.tipos_seleccionados %}
+                <div>
+                    {{ checkbox.tag }}
+                    <label for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+                </div>
+                {% endfor %}
+            </div>
             <br>
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" min="0" step="0.1" style="width: 50px">
-            <select id="unidades" name="unidades">
-                <option value="ud">ud.</option>
-                <option value="bolsas">bolsas</option>
-                <option value="kg">kg</option>
-                <option value="g">gr</option>
-            </select>
-            <br>
-            <p>Tipo:</p>
-            <div>
-                <input type="checkbox" id="fruta-verdura" name="opciones[]" value="fruta-verdura">
-                <label for="fruta-verdura">Fruta y Verdura</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="carne" name="opciones[]" value="carne">
-                <label for="carne">Carne</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="pescado" name="opciones[]" value="pescado">
-                <label for="pescado">Pescado</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="lacteos" name="opciones[]" value="lacteos">
-                <label for="lacteos">Lacteos</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="congelados" name="opciones[]" value="congelados">
-                <label for="congelados">Congelados</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="precocinados" name="opciones[]" value="precocinados">
-                <label for="precocinados">Precocinados</label>
-            </div>
-            <!--<select id="opciones" name="opciones" multiple>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>-->
-            <button type="submit">Enviar</button>
+            <button type="submit" name="nuevo_producto">Enviar</button>
         </form>
     </div>
 </div>

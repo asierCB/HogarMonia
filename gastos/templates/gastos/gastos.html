@@ -186,7 +186,7 @@
           {% for miembro in miembros %}
       <div>
         <input type="checkbox" id="opcion{{ forloop.counter }}" name="participantes" value="{{ miembro.usuariogrupo_set.first.id }}">
-        <label for="opcion{{ forloop.counter }}">{{ forloop.counter }}. {{ miembro.username }} </label>
+        <label for="opcion{{ forloop.counter }}">{{ miembro.username }} </label>
       </div>
           {% endfor %}
       {% else %}
