@@ -14,7 +14,6 @@ class Tareas(models.Model):
     tiempo_estimado = models.FloatField(default=0.5, )
     participantes = models.ManyToManyField(UsuarioGrupo, related_name='tareas', blank=True, null=True)
     grupo = models.ForeignKey(GrupoHogar, on_delete=models.DO_NOTHING)
-    npersonas = models.IntegerField(default=1, verbose_name='Número de personas necesarias')
 
     def __str__(self):
         return self.nombre_tareas

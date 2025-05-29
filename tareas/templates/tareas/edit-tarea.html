@@ -27,7 +27,11 @@
                 <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
                 {% endif %}
 
+                {% if grupo and grupo.id_grupo %}
+                <li class="elementos-header"><a href="{% url 'lista_grupo' grupo.id_grupo%}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
+                {% else %}
                 <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="divUser">

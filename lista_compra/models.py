@@ -15,7 +15,7 @@ class ListaCompra(models.Model):
         return self.nombre_lista
 
 class ProductoLista(models.Model):
-    FRUTA_VERDURA = 'Fruta_Verdura'
+    FRUTA_VERDURA = 'Fruta/Verdura'
     CARNE = 'Carne'
     PESCADO = 'Pescado'
     LACTEOS = 'Lacteos'
@@ -27,13 +27,13 @@ class ProductoLista(models.Model):
     CONSERVAS = 'Conservas'
     CEREALES_PASTA = 'Cereales o Pasta'
     HARINAS = 'Harinas'
-    PAN = 'Pan'
+    PAN = 'Pan/Bollería'
     AZUCAR = 'Azucar'
     CAFE_INFUSIONES = 'Cafe o Infusiones'
     EMBUTIDO = 'Embutido'
 
     TIPOS = [
-        (FRUTA_VERDURA, 'Fruta y Verdura'),
+        (FRUTA_VERDURA, 'Fruta/Verdura'),
         (CARNE, 'Carne'),
         (PESCADO, 'Pescado'),
         (LACTEOS, 'Lacteos'),
@@ -45,7 +45,7 @@ class ProductoLista(models.Model):
         (CONSERVAS, 'Conservas'),
         (CEREALES_PASTA, 'Cereales o Pasta'),
         (HARINAS, 'Harinas'),
-        (PAN, 'Pan y Producto de panaderia'),
+        (PAN, 'Pan/Bollería'),
         (AZUCAR, 'Azucar'),
         (CAFE_INFUSIONES, 'Cafe o Infusiones'),
         (EMBUTIDO, 'Embutido'),

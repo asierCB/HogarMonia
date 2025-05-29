@@ -82,6 +82,33 @@ def lista_grupo(request, grupo_id):
                 lista.save()
                 return redirect('lista_grupo', grupo_id=grupo_id)
 
+        elif 'cambiar_estado' in request.POST:
+            productos_comprados_ids = request.POST.getlist('productos_comprados')
+            lista_id = request.POST.get('lista_id')  # ✅ Obtener la lista_id
+
+            if productos_comprados_ids and lista_id:
+                try:
+                    # Verificar que la lista pertenezca al grupo actual
+                    lista = ListaCompra.objects.get(id_lista=lista_id, id_grupo=grupo)
+
+                    # Convertir a enteros
+                    productos_comprados_ids = [int(id) for id in productos_comprados_ids]
+
+                    # Actualizar los productos seleccionados
+                    productos_actualizados = ProductoLista.objects.filter(
+                        id_producto__in=productos_comprados_ids,
+                        id_lista=lista  # ✅ Ahora sí tenemos la variable lista
+                    ).update(comprado=True)
+
+                    print(f"Se actualizaron {productos_actualizados} productos")  # Para debug
+
+                except ListaCompra.DoesNotExist:
+                    print("Lista no encontrada")  # Para debug
+                except Exception as e:
+                    print(f"Error: {e}")  # Para debug
+
+            return redirect('lista_grupo', grupo_id=grupo_id)
+
     # Get members for display
     relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
     miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
@@ -95,7 +122,7 @@ def lista_grupo(request, grupo_id):
         'form_producto': form_producto,
         'form_lista': form_lista,
         'user': request.user,
-        'productos': ProductoLista.objects.filter(id_lista__id_grupo=grupo),
+        'productos': ProductoLista.objects.filter(id_lista__id_grupo=grupo).order_by('comprado', 'tipo'),
         'listas': listas_disponibles,
     }
 

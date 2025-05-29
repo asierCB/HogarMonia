@@ -1,9 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.contrib import messages
 from core.models import GrupoHogar, UsuarioGrupo, User
 from .models import Tareas
 from .forms import TareaForm
+import random
 
 # Create your views here.
 @login_required
@@ -51,12 +55,52 @@ def tareas_grupo(request, grupo_id):
 
     # Handle form submission
     if request.method == 'POST':
-        form = TareaForm(request.POST, grupo=grupo)
-        if form.is_valid():
-            tarea = form.save(commit=False)
-            tarea.grupo = grupo  # If you have a grupo field in your Gasto model
-            tarea.save()
-            form.save_m2m()  # Important to save ManyToMany relationships
+        if 'nueva_tarea' in request.POST:
+            form = TareaForm(request.POST, grupo=grupo)
+            if form.is_valid():
+                tarea = form.save(commit=False)
+                tarea.grupo = grupo  # If you have a grupo field in your Gasto model
+                tarea.save()
+                form.save_m2m()  # Important to save ManyToMany relationships
+                return redirect('tareas', grupo_id=grupo_id)
+
+        elif 'btn-randomizar' in request.POST:
+            tareas_pend_ids = request.POST.getlist('tarea_selec')
+
+            if tareas_pend_ids:
+                tareas_pend = Tareas.objects.filter(id_tareas__in=tareas_pend_ids, grupo=grupo)
+                usuarios_grupo = list(UsuarioGrupo.objects.filter(grupo=grupo))
+
+                if usuarios_grupo:
+                    for tarea in tareas_pend:
+                        usuario_aleatorio = random.choice(usuarios_grupo)
+                        tarea.participantes.clear()
+                        tarea.participantes.add(usuario_aleatorio)
+                    messages.success(request, f"Se asignaron {len(tareas_pend)} tareas aleatoriamente")
+                else:
+                    messages.error(request, "No hay usuarios en el grupo")
+
+                return redirect('tareas', grupo_id=grupo_id)
+
+        elif 'asignar_aleatorio' in request.POST:
+            # Asignar usuario aleatorio a una tarea específica
+            tarea_id = request.POST.get('tarea_id')
+            try:
+                tarea = get_object_or_404(Tareas, id_tareas=tarea_id, grupo=grupo)
+                usuarios_grupo = list(UsuarioGrupo.objects.filter(grupo=grupo))
+
+                if usuarios_grupo:
+                    usuario_aleatorio = random.choice(usuarios_grupo)
+                    tarea.participantes.clear()
+                    tarea.participantes.add(usuario_aleatorio)
+                    messages.success(request,
+                                     f"Tarea '{tarea.nombre_tareas}' asignada a {usuario_aleatorio.usuario.get_full_name() or usuario_aleatorio.usuario.username}")
+                else:
+                    messages.error(request, "No hay usuarios en el grupo")
+
+            except Exception as e:
+                messages.error(request, f"Error al asignar la tarea: {str(e)}")
+
             return redirect('tareas', grupo_id=grupo_id)
     else:
         form = TareaForm(grupo=grupo)
