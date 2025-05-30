@@ -18,8 +18,9 @@ class ProductoListaForm(forms.ModelForm):
     # Campo personalizado para las opciones tipo con checkboxes
     tipos_seleccionados = forms.MultipleChoiceField(
         choices=ProductoLista.TIPOS,
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
+        widget=forms.RadioSelect,
+        #widget=forms.CheckboxSelectMultiple,
+        required=True,
         label='Tipos'
     )
 
