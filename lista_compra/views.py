@@ -84,7 +84,7 @@ def lista_grupo(request, grupo_id):
 
         elif 'cambiar_estado' in request.POST:
             productos_comprados_ids = request.POST.getlist('productos_comprados')
-            lista_id = request.POST.get('lista_id')  # ✅ Obtener la lista_id
+            lista_id = request.POST.get('lista_id')
 
             if productos_comprados_ids and lista_id:
                 try:

@@ -39,11 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_crontab',   #Aplicacion para configurar tareas programadas
     #Mis aplicaciones
     'core', #global information for the web
-    'tareas.apps.TareasConfig',       # O simplemente 'tareas'
-    'gastos.apps.GastosConfig',       # O simplemente 'gastos'
-    'lista_compra.apps.ListaCompraConfig', # O simplemente 'lista_compra'
+    'tareas.apps.TareasConfig',
+    'gastos.apps.GastosConfig',
+    'lista_compra.apps.ListaCompraConfig',
+]
+
+CRONJOBS = [
+    ('0 0 * * 1', 'tareas.cron.del_tareas'),
+    #el orden de los numeros seria:
+    #minuto, hora, dia del mes, mes, dia de la semana
+    #* es que puede ser cualquiera
 ]
 
 MIDDLEWARE = [
