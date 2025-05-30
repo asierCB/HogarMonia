@@ -58,9 +58,18 @@ def tareas_grupo(request, grupo_id):
         if 'nueva_tarea' in request.POST:
             form = TareaForm(request.POST, grupo=grupo)
             if form.is_valid():
-                tarea = form.save(commit=False)
-                tarea.grupo = grupo  # If you have a grupo field in your Gasto model
-                tarea.save()
+                if form.cleaned_data['frecuencia'] != 1:
+                    frecuencia = form.cleaned_data['frecuencia']
+                    print(frecuencia)
+                    for instancia in range(frecuencia):
+                        tarea = form.save(commit=False)
+                        tarea.grupo = grupo
+                        tarea.pk = None #Forzamos la creacion de una nueva Tarea
+                        tarea.save()
+                else:
+                    tarea = form.save(commit=False)
+                    tarea.grupo = grupo
+                    tarea.save()
                 return redirect('tareas', grupo_id=grupo_id)
 
         elif 'btn-randomizar' in request.POST:

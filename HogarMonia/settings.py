@@ -48,10 +48,11 @@ INSTALLED_APPS = [
 ]
 
 CRONJOBS = [
+    ('59 23 * * 7', 'tareas.cron.duplicar_tarea'),
     ('0 0 * * 1', 'tareas.cron.del_tareas'),
     #el orden de los numeros seria:
-    #minuto, hora, dia del mes, mes, dia de la semana
-    #* es que puede ser cualquiera
+        #minuto, hora, dia del mes, mes, dia de la semana
+        #* es que puede ser cualquiera
 ]
 
 MIDDLEWARE = [
