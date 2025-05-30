@@ -73,3 +73,57 @@ def miembros_del_grupo(request, grupo_id):
         'deuda': deuda,
     }
     return render(request, 'gastos/gastos.html', context)
+
+
+@login_required
+def edit_gasto(request, gasto_id, ):
+    gasto = get_object_or_404(Gasto, id_gasto=gasto_id)
+    grupo = gasto.grupo
+
+    # Permission check
+    is_member = UsuarioGrupo.objects.filter(usuario=request.user, grupo=gasto.grupo).exists()
+    if not is_member:
+        return HttpResponseForbidden("You do not have permission to edit this gasto.")
+
+    # Handle form submission
+    if request.method == 'POST':
+        if request.POST.get('action') == 'delete':
+            gasto.delete()
+            return redirect('gastos', grupo_id=grupo.id_grupo)
+
+        form = GastoForm(request.POST, instance=gasto, grupo=grupo)
+        if form.is_valid():
+            # Guardar y actualizar la instancia
+            gasto = form.save(commit=False)
+            gasto.grupo = grupo
+            gasto.save()
+            form.save_m2m()  # Important to save ManyToMany relationships
+
+            # Refrescar los participantes después del save
+            participantes_usuario_ids = list(
+                gasto.participantes.values_list('usuario__id', flat=True)
+            )
+
+            return redirect('gastos', grupo_id=grupo.id_grupo)
+    else:
+        form = GastoForm(instance=gasto, grupo=grupo)
+
+    # Get members for display
+    relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
+    miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
+
+    # Obtener los usuarios (no UsuarioGrupo) participantes del gasto
+    participantes_usuario_ids = list(
+        gasto.participantes.values_list('usuario__id', flat=True)
+    )
+
+    context = {
+        'grupo': grupo,
+        'miembros': miembros,
+        'form': form,
+        'user': request.user,
+        'gasto': gasto,  # Ahora gasto tiene los datos actualizados
+        'participantes_usuario_ids': participantes_usuario_ids,
+    }
+
+    return render(request, 'gastos/edit-gasto.html', context)

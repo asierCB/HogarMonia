@@ -5,6 +5,24 @@ from .models import Gasto
 from django.contrib.auth.models import User
 
 class GastoForm(forms.ModelForm):
+    participantes = forms.ModelMultipleChoiceField(
+        queryset=UsuarioGrupo.objects.none(),
+        widget=forms.CheckboxSelectMultiple(attrs={
+            'class': 'custom-checkbox',
+            'style': 'display: flex; flex-direction: column; gap: 8px;'
+            #'style': 'display: flex; flex-direction: column;'
+        }),
+        required=False
+    )
+    '''pagado_por = forms.ModelChoiceField(
+        queryset=UsuarioGrupo.objects.none(),
+        widget=forms.RadioSelect(attrs={
+            'class': 'custom-radio',
+            'style': 'display: flex; flex-direction: row;'
+        }),
+        required=True
+    )'''
+
     class Meta:
         model = Gasto
         fields = ['concepto', 'precio', 'pagado_por', 'recurrente', 'participantes']  # Campos del formulario

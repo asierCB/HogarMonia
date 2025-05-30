@@ -58,9 +58,9 @@
 
 <!-- Mostrar mensajes de Django -->
 {% if messages %}
-<div class="messages">
+<div id="messagesTareas">
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
+    <div class="alert success"><!--alert-{{ message.tags }}">-->
         {{ message }}
     </div>
     {% endfor %}
@@ -71,50 +71,6 @@
     <strong>+ Agregar Tarea</strong>
 </button>
 
-
-<!--<button type="submit" id="btn-randomizar">
-        <img src="{% static 'img/random.png' %}" alt="randomizar" width="60" height="60">
-</button>
-
-
-
-<div class="contenedor-tareas" id="contenedor-tareas">
-    <br>
-
-    {% for tarea in tareas %}
-    <div class="tarea">
-        <div class="izquierda">
-
-            <input type="checkbox" name="tarea_selec" value="{{ tarea.id_tareas }}">
-
-            <div class="info-tarea">
-                <div class="nombre-tarea"><strong>{{ tarea.nombre_tareas }}</strong></div>
-                {% if tareas.participantes.all.length == 1 %}
-                <div class="persona-asignada">Persona asignada:
-                {% else %}
-                <div class="persona-asignada">Personas asignadas:
-                {% endif %}
-                    {% for participante in tarea.participantes.all %}
-                    {{ participante }}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% if tarea.completada %}
-            <div class="estado">Estado: Hecho</div>
-        {% else %}
-            <div class="estado">Estado: Pendiente</div>
-        {% endif %}
-        <form type="GET">
-        <div class="acciones">
-            <a href="{% url 'tareas_edit_tarea' tarea.id_tareas %}"><button type="button" class="opciones-tareas" data-id="{{ tarea.id_tareas }}" id="btn-editar-{{ tarea.id_tareas }}">...</button></a>
-            <input type="hidden" name="id_tareas" value="{{ tarea.id_tareas }}">
-        </div>
-        </form>
-    </div>
-    {% endfor %}
-</div>-->
-<!-- Formulario para randomizar múltiples tareas -->
 <form method="POST">
     {% csrf_token %}
     <button type="submit" name="btn-randomizar" id="btn-randomizar">
@@ -135,22 +91,13 @@
                     <div class="nombre-tarea"><strong>{{ tarea.nombre_tareas }}</strong></div>
 
                         <div class="persona-asignada">Persona asignada:
-
-                        {% for participante in tarea.participantes.all %}
+                            {{ tarea.participantes }}
+                        <!--{% for participante in tarea.participantes.all %}
                             {{ participante.usuario.get_full_name|default:participante.usuario.username }}{% if not forloop.last %}, {% endif %}
                             {% empty %}
                             Sin asignar
-                        {% endfor %}
-
-                            <!-- Formulario individual para asignar usuario aleatorio -->
+                        {% endfor %}-->
                         </div>
-                        <!--<form method="POST" style="display: inline;">
-                            {% csrf_token %}
-                            <input type="hidden" name="tarea_id" value="{{ tarea.id_tareas }}">
-                            <button type="submit" name="asignar_aleatorio" class="btn-aleatorio-individual">
-                                🎲 Aleatorio
-                            </button>
-                        </form>-->
                     </div>
                 </div>
                 {% if tarea.completada %}
@@ -162,7 +109,6 @@
                     <a href="{% url 'tareas_edit_tarea' tarea.id_tareas %}"><button type="button" class="opciones-tareas" data-id="{{ tarea.id_tareas }}" id="btn-editar-{{ tarea.id_tareas }}">...</button></a>
                 </div>
             </div>
-        </div>
 
     </div>
     {% endfor %}
@@ -290,16 +236,18 @@
                 <label for="frecuencia">Frecuencia (veces a la semana):</label>
                 <input type="number" id="frecuencia" name="frecuencia" min="1" step="1">
 
-                <p style="text-indent: 0">Asignar tarea manualmente:</p>
-                {% if miembros %}
+                <br><br>
+                <label style="text-indent: 0">Asignar tarea manualmente:</label>
+                {{ form.participantes }}
+                <!--{% if miembros %}
                     {% for miembro in miembros %}
                         <input type="checkbox" id="persona{{ forloop.counter }}" name="participantes" value="{{ miembro.id }}">
                         <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
                     {% endfor %}
                 {% else %}
                     <p>No members found.</p>
-                {% endif %}
-                <br>
+                {% endif %}-->
+                <br><br>
                 <button type="submit" name="nueva_tarea">Enviar</button>
         </form>
     </div>

@@ -6,4 +6,6 @@ urlpatterns = [
     #path('gastos/<int:grupo_id>/', views.miembros_del_grupo, name='miembros'),
 
     path('gastos/<int:grupo_id>/', views.miembros_del_grupo, name='gastos'),
+    path('gastos/edit-gasto/<int:gasto_id>/', views.edit_gasto, name='gastos_edit_gasto'),
+
 ]

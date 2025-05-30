@@ -66,6 +66,9 @@
   <br>
   <div class="gasto">
     <h2 class="gasto-nombre">{{ gasto.concepto }}</h2>
+    <div class="accionesGastos">
+      <a href="{% url 'gastos_edit_gasto' gasto.id_gasto %}"><button type="button" class="opciones-gastos" data-id="{{ gasto.id_gasto }}" id="btn-editar-{{ gasto.id_gasto }}">...</button></a>
+    </div>
     <div class="gasto-detalles">
       <p class="gasto-cantidad">Precio: {{ gasto.precio }} €</p>
       <p class="gasto-participantes">Participantes:</p>
@@ -200,19 +203,20 @@
       <br>
       <label for="recurrente"> ¿Es recurrente?</label>
       <input type="checkbox" id="recurrente" name="recurrente">
-      <br>
+      <br><br>
 
 
-      <p>Pagado por:</p>
-      {% if miembros %}
+      <label>Pagado por:</label>
+        {{ form.pagado_por }}
+      <!--{% if miembros %}
         {% for miembro in miembros %}
         <input type="radio" id="persona{{ forloop.counter }}" name="pagado_por" value="{{ miembro.id }}">
         <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
         {% endfor %}
       {% else %}
         <p>No members found.</p>
-      {% endif %}
-
+      {% endif %}-->
+      <br><br>
       <button type="submit">Enviar</button>
 
     </form>

@@ -56,47 +56,54 @@
 </header>
 
 <!--Formulario Editar Tarea-->
-<h1>Editar Tarea</h1>
-<div class="formularioEditarTarea" id="formularioEditarTarea">
+<h1>Editar Gasto</h1>
+<div class="formularioEditarTarea" id="formularioEditarGasto">
     <div class="formulario-container">
-        <!--<button class="cerrar-btn" id="cerrarFormularioBtnET">&times;</button>-->
-        <h2>{{ tarea.nombre_tareas }}</h2>
-        <form method="POST" action="{% url 'tareas_edit_tarea' tarea.id_tareas %}" class="formulario-tarea" id="formularioEditTarea">
+        <h2>{{ gasto.concepto }}</h2>
+        <form method="POST" action="{% url 'gastos_edit_gasto' gasto.id_gasto %}" class="formulario-gasto" id="formularioGasto">
             {% csrf_token %}
-            <div>
-                <label>Nombre de la Tarea:</label>
-                {{ form.nombre_tareas }}
-            </div>
-                <br>
-            <div>
-                <label>Fecha límite:</label>
-                {{ form.fecha_limite }}
-            </div>
-                <br>
-            <div>
-                <label>¿Es periódica?:</label>
-                {{ form.es_periodica }}
-            </div>
-                <br>
-            <div>
-                <label>Estado:</label>
-                {{ form.completada }}
-            </div>
-                <br>
-            <div>
-                <label>Tiempo aproximado:</label>
-                {{ form.tiempo_estimado }}
-            </div>
-                <br>
-            <div>
-                <label>Frecuencia(veces semana):</label>
-                {{ form.frecuencia }}
-            </div>
-                <br>
-
-            <label style="text-indent: 0">Responsable:</label>
+            <label>Nombre del gasto:</label>
+            {{ form.concepto }}
+            <br>
+            <label>Precio:</label>
+            {{ form.precio }} €
+            <br>
+            <p>Participantes: </p>
             {{ form.participantes }}
+            <!--{% if miembros %}
+                {% for miembro in miembros %}
+                    {% if miembro.id in participantes_usuario_ids %}
+                        <input type="checkbox" id="personaGasto{{ forloop.counter }}" name="participantes" value="{{ miembro.id }}" checked>
+                    {% else %}
+                        <input type="checkbox" id="personaGasto{{ forloop.counter }}" name="participantes" value="{{ miembro.id }}">
+                    {% endif %}
+                        <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
+                {% endfor %}
+            {% else %}
+                <p>No members found.</p>
+            {% endif %}-->
+            <br>
+
+            <label> ¿Es recurrente?</label>
+            {{ form.recurrente }}
             <br><br>
+
+            <label>Pagado por:</label>
+            {{ form.pagado_por }}
+            <br>
+            <!--{% if miembros %}
+                {% for miembro in miembros %}
+                    {% if miembro.id in participantes_usuario_ids %}
+                        <input type="radio" id="personaGasto{{ forloop.counter }}" name="pagado_por" value="{{ miembro.id }}" checked>
+                    {% else %}
+                        <input type="radio" id="personaGasto{{ forloop.counter }}" name="pagado_por" value="{{ miembro.id }}">
+                    {% endif %}
+                    <label>{{ miembro.username }}</label><br>
+                {% endfor %}
+            {% else %}
+                <p>No members found.</p>
+            {% endif %}-->
+            <br>
             <div style="display: flex; justify-content: space-between; align-items: center">
                 <button type="submit" name="action" value="delete" style="width: 40%" onclick="return confirm('¿Estás seguro de que quieres eliminar esta tarea?');">Eliminar</button>
                 <button type="submit" name="action" value="update" style="width: 40%">Actualizar Tarea</button>

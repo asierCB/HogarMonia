@@ -60,6 +60,32 @@ if (mostrarBtnT && cerrarBtnT && overlayT) {
         overlayT.style.display = 'none';
     });
 }
+
+    // Mensaje Temporal en tareas
+        // Ocultar mensajes de las notificaciones despues de 3s
+/*document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(function () {
+        const messagesTareas = document.getElementById('messagesTareas');
+        if (messagesTareas) {
+            messagesTareas.style.display = 'none';
+        }
+    }, 3000);
+});*/
+document.addEventListener('DOMContentLoaded', () => {
+    const hideMessagesTareas = () => {
+        const messagesTareas = document.getElementById('messagesTareas');
+        if (messagesTareas && messagesTareas.style.display !== 'none') {
+            messagesTareas.style.transition = 'opacity 0.5s ease-out';
+            messagesTareas.style.opacity = '0';
+
+            setTimeout(() => {
+                messagesTareas.remove(); // Elimina completamente del DOM
+            }, 500);
+        }
+    };
+
+    setTimeout(hideMessagesTareas, 3000);
+});
     //Editar Tarea
 /*const mostrarBtnET = document.getElementsByClassName('opciones-tareas')//${{ tarea.id_tareas }}')
 const cerrarBtnET = document.getElementById('cerrarFormularioBtnET')
@@ -131,11 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
 //Perfil
 // Ocultar mensajes de las notificaciones despues de 3s
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(function () {
+    const hideMessages = () => {
         const messages = document.getElementById('messages');
-        if (messages) {
-            messages.style.display = 'none';
+        if (messages && messages.style.display !== 'none') {
+            messages.style.transition = 'opacity 0.5s ease-out';
+            messages.style.opacity = '0';
+
+            setTimeout(() => {
+                messages.remove(); // Elimina completamente del DOM
+            }, 500);
         }
-    }, 3000);
+    };
+
+    setTimeout(hideMessages, 3000);
 });
 

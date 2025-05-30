@@ -61,7 +61,6 @@ def tareas_grupo(request, grupo_id):
                 tarea = form.save(commit=False)
                 tarea.grupo = grupo  # If you have a grupo field in your Gasto model
                 tarea.save()
-                form.save_m2m()  # Important to save ManyToMany relationships
                 return redirect('tareas', grupo_id=grupo_id)
 
         elif 'btn-randomizar' in request.POST:
@@ -74,8 +73,8 @@ def tareas_grupo(request, grupo_id):
                 if usuarios_grupo:
                     for tarea in tareas_pend:
                         usuario_aleatorio = random.choice(usuarios_grupo)
-                        tarea.participantes.clear()
-                        tarea.participantes.add(usuario_aleatorio)
+                        tarea.participantes = usuario_aleatorio
+                        tarea.save()
                     messages.success(request, f"Se asignaron {len(tareas_pend)} tareas aleatoriamente")
                 else:
                     messages.error(request, "No hay usuarios en el grupo")
@@ -91,8 +90,8 @@ def tareas_grupo(request, grupo_id):
 
                 if usuarios_grupo:
                     usuario_aleatorio = random.choice(usuarios_grupo)
-                    tarea.participantes.clear()
-                    tarea.participantes.add(usuario_aleatorio)
+                    tarea.participantes = usuario_aleatorio
+                    tarea.save()
                     messages.success(request,
                                      f"Tarea '{tarea.nombre_tareas}' asignada a {usuario_aleatorio.usuario.get_full_name() or usuario_aleatorio.usuario.username}")
                 else:
@@ -138,9 +137,9 @@ def edit_tarea(request, tarea_id,):
 
         form = TareaForm(request.POST, instance=tarea, grupo=grupo)
         if form.is_valid():
-            tarea2 = form.save(commit=False)
-            tarea2.grupo = grupo  # If you have a grupo field in your Gasto model
-            tarea2.save()
+            tarea = form.save(commit=False)
+            tarea.grupo = grupo  # If you have a grupo field in your Gasto model
+            tarea.save()
             form.save_m2m()  # Important to save ManyToMany relationships
             return redirect('tareas', grupo_id=grupo.id_grupo)
     else:
@@ -152,9 +151,9 @@ def edit_tarea(request, tarea_id,):
 
     #participantes_ids = tarea.participantes.values_list('id', flat=True)
     # Obtener los usuarios (no UsuarioGrupo) participantes de la tarea
-    participantes_usuario_ids = list(
-        tarea.participantes.values_list('usuario__id', flat=True)
-    )
+    participantes_usuario_id = None
+    if tarea.participantes:
+        participante_usuario_id = tarea.participantes.usuario.id
 
     context = {
         'grupo': grupo,
@@ -163,7 +162,7 @@ def edit_tarea(request, tarea_id,):
         'user': request.user,
 
         'tarea': tarea,  # .order_by('-fecha_gasto'),
-        'participantes_usuario_ids': participantes_usuario_ids,
+        #'participantes_usuario_ids': participante_usuario_id,
     }
 
     return render(request, 'tareas/edit-tarea.html', context)
