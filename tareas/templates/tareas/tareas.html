@@ -89,14 +89,8 @@
 
                 <div class="info-tarea">
                     <div class="nombre-tarea"><strong>{{ tarea.nombre_tareas }}</strong></div>
-
                         <div class="persona-asignada">Persona asignada:
                             {{ tarea.participantes }}
-                        <!--{% for participante in tarea.participantes.all %}
-                            {{ participante.usuario.get_full_name|default:participante.usuario.username }}{% if not forloop.last %}, {% endif %}
-                            {% empty %}
-                            Sin asignar
-                        {% endfor %}-->
                         </div>
                     </div>
                 </div>

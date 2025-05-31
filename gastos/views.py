@@ -76,7 +76,7 @@ def miembros_del_grupo(request, grupo_id):
 
 
 @login_required
-def edit_gasto(request, gasto_id, ):
+def edit_gasto(request, gasto_id):
     gasto = get_object_or_404(Gasto, id_gasto=gasto_id)
     grupo = gasto.grupo
 
@@ -127,3 +127,14 @@ def edit_gasto(request, gasto_id, ):
     }
 
     return render(request, 'gastos/edit-gasto.html', context)
+
+@login_required
+def info_deuda(request, grupo_id):
+    grupo = get_object_or_404(GrupoHogar, id_grupo=grupo_id)
+
+    # Permission check
+    is_member = UsuarioGrupo.objects.filter(usuario=request.user, grupo=grupo).exists()
+    if not is_member:
+        return HttpResponseForbidden("You do not have permission to view this group's details.")
+
+    return render(request, 'gastos/info-deuda.html', {'grupo': grupo})

@@ -28,7 +28,7 @@
         {% endif %}
 
         {% if grupo and grupo.id_grupo %}
-        <li class="elementos-header"><a href="{% url 'lista_grupo' grupo.id_grupo%}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
+        <li class="elementos-header"><a href="{% url 'lista_grupo' grupo.id_grupo %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
         {% else %}
         <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
         {% endif %}
@@ -83,9 +83,18 @@
 {% endfor %}
 </div>
 
+<!--<div class="deuda" id="deuda-total">
+  <h2>Deuda total: {{ deuda }} euros.</h2>
+  <a href="{% url 'info_deuda' grupo.id_grupo %}"><button class="estado">+info</button></a>
+</div>-->
+
 <div class="deuda" id="deuda-total">
   <h2>Deuda total: {{ deuda }} euros.</h2>
+  {% if grupo and grupo.id_grupo %}
+  <a href="{% url 'info_deuda' grupo.id_grupo %}"><button class="estado">+info</button></a>
+  {% endif %}
 </div>
+
 <br>
 <br>
 <br>
