@@ -5,6 +5,10 @@ from .forms import RegisterForm
 from .models import GrupoHogar, UsuarioGrupo
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 
 
 def index(request):
@@ -71,6 +75,8 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             return redirect('perfil')
+        else:
+            messages.error(request, 'Contraseña o Usuario Incorrectos')
     else:
         form = AuthenticationForm(request)
     return render(request, 'core/login.html', {'form': form})
@@ -79,6 +85,7 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
+@login_required
 def perfil(request):
     from django.contrib.auth.models import User
     from .models import UsuarioGrupo
@@ -154,3 +161,20 @@ def perfil(request):
 
 
     return render(request, 'core/perfil.html',{'grupo' : grupo,'miembros' : miembros, 'rol' : rol})
+
+
+@login_required
+def cambiar_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, '¡Tu contraseña ha sido actualizada exitosamente!')
+            return redirect('perfil')  # o donde quieras redirigir
+        else:
+            messages.error(request, 'Por favor corrige los errores en el formulario.')
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'core/cambiar_password.html', {'form': form})

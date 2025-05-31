@@ -95,90 +95,8 @@
   {% endif %}
 </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br>
+
 
 <!-- Formulario para Agregar Gasto -->
 <div class="formulario-overlay" id="formularioOverlayG">
@@ -217,14 +135,6 @@
 
       <label>Pagado por:</label>
         {{ form.pagado_por }}
-      <!--{% if miembros %}
-        {% for miembro in miembros %}
-        <input type="radio" id="persona{{ forloop.counter }}" name="pagado_por" value="{{ miembro.id }}">
-        <label for="persona{{ forloop.counter }}">{{ miembro.username }}</label><br>
-        {% endfor %}
-      {% else %}
-        <p>No members found.</p>
-      {% endif %}-->
       <br><br>
       <button type="submit">Enviar</button>
 
@@ -233,19 +143,19 @@
 </div>
 
 <footer>
-  <div style="text-align: center;">
-    Contáctanos: centroarmoniadomestica@gmail.com
-  </div>
+    <div style="text-align: center;">
+        Contáctanos: centroarmoniadomestica@gmail.com
+    </div>
 
-  <div style="height: 1px;  background-color: #ccc;  margin: 10px auto;  width: 75%;"></div> <!--separator line-->
+    <div style="height: 1px;  background-color: #ccc;  margin: 10px auto;  width: 75%;"></div> <!--separator line-->
 
-  <div class="copyright">
-    <p style="font-size: 12px">&copy; 2025 Centro de Armonía Doméstica. Todos los derechos reservados.</p>
-    <p>
-      <a href="{% url 'terms' %}" style="color: #353b53">Términos y condiciones</a>&nbsp;&nbsp;&nbsp;
-      <a href="{% url 'privacy' %}" style="color: #353b53">Privacidad</a>
-    </p>
-  </div>
+    <div class="copyright">
+        <p style="font-size: 12px">&copy; 2025 Centro de Armonía Doméstica. Todos los derechos reservados.</p>
+        <p>
+              <a href="{% url 'terms' %}" style="color: #353b53">Términos y condiciones</a>&nbsp;&nbsp;&nbsp;
+              <a href="{% url 'privacy' %}" style="color: #353b53">Privacidad</a>
+        </p>
+    </div>
 </footer>
 <script src="{% static 'js/script.js' %}"></script> <!-- "../static/script.js"></script>-->
 </body>

@@ -128,6 +128,48 @@ def edit_gasto(request, gasto_id):
 
     return render(request, 'gastos/edit-gasto.html', context)
 
+'''@login_required
+def info_deuda(request, grupo_id):
+    grupo = get_object_or_404(GrupoHogar, id_grupo=grupo_id)
+
+    # Permission check
+    is_member = UsuarioGrupo.objects.filter(usuario=request.user, grupo=grupo).exists()
+    if not is_member:
+        return HttpResponseForbidden("You do not have permission to view this group's details.")
+
+    # Get members for display
+    relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
+    miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
+
+    from decimal import Decimal
+
+    dicc_deuda ={}
+    for gasto in Gasto.objects.filter(grupo=grupo):
+        share_per_participant = gasto.precio / gasto.participantes.count()
+
+        for participante in gasto.participantes.all():
+            if participante not in dicc_deuda:
+                dicc_deuda[participante] = Decimal('0.00')
+
+            dicc_deuda[participante] -= Decimal(share_per_participant)
+
+        if gasto.pagado_por not in dicc_deuda:
+            dicc_deuda[gasto.pagado_por] = Decimal('0.00')
+
+        dicc_deuda[gasto.pagado_por] += gasto.precio
+
+
+    context = {
+        'grupo': grupo,
+        'miembros': miembros,
+        'user': request.user,
+        'deuda': dicc_deuda,
+        #'gasto': gasto,
+    }
+
+    return render(request, 'gastos/info-deuda.html', context)'''
+
+
 @login_required
 def info_deuda(request, grupo_id):
     grupo = get_object_or_404(GrupoHogar, id_grupo=grupo_id)
@@ -137,4 +179,42 @@ def info_deuda(request, grupo_id):
     if not is_member:
         return HttpResponseForbidden("You do not have permission to view this group's details.")
 
-    return render(request, 'gastos/info-deuda.html', {'grupo': grupo})
+    # Get members for display
+    relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
+    miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
+
+    from decimal import Decimal
+
+    # Inicializar todos los miembros con balance 0
+    dicc_deuda = {miembro: Decimal('0.00') for miembro in miembros}
+
+    # Procesar gastos
+    gastos = Gasto.objects.filter(grupo=grupo).prefetch_related('participantes__usuario')
+
+    for gasto in gastos:
+        participantes_usuario_grupo = gasto.participantes.distinct()
+        num_participantes = participantes_usuario_grupo.count()
+
+        if num_participantes == 0:
+            continue  # Saltar gastos sin participantes
+
+        share_per_participant = gasto.precio / num_participantes
+
+        # Cada participante debe su parte
+        for participante_relacion in participantes_usuario_grupo:
+            usuario_participante = participante_relacion.usuario  # Aquí accedes al User
+            if usuario_participante in dicc_deuda:  # Solo si es miembro del grupo
+                dicc_deuda[usuario_participante] -= Decimal(str(share_per_participant))
+
+        # El que pagó recibe el crédito total
+        if gasto.pagado_por in dicc_deuda:  # Solo si es miembro del grupo
+            dicc_deuda[gasto.pagado_por] += Decimal(str(gasto.precio))
+
+    context = {
+        'grupo': grupo,
+        'miembros': miembros,
+        'user': request.user,
+        'deuda': dicc_deuda,
+    }
+
+    return render(request, 'gastos/info-deuda.html', context)

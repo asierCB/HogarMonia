@@ -123,7 +123,7 @@ def tareas_grupo(request, grupo_id):
         'form': form,
         'user': request.user,
 
-        'tareas': Tareas.objects.filter(grupo=grupo), #.order_by('-fecha_gasto'),
+        'tareas': Tareas.objects.filter(grupo=grupo).order_by('completada', 'fecha_limite', 'nombre_tareas'),
 
     }
     return render(request, 'tareas/tareas.html', context)

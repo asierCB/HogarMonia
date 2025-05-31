@@ -14,7 +14,19 @@
 </div>
 
 
+
+<br>
 <div class="contenedor-in">
+
+    <!-- Mensaje para cuando se introduzcan mal las credenciales-->
+    {% if messages %}
+    <div id="messages">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="formulario-login">
         <h2>Iniciar Sesión</h2>
         <form method="POST">

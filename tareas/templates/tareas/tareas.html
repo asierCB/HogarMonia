@@ -81,7 +81,6 @@
     <div class="contenedor-tareas" id="contenedor-tareas">
         <br>
 
-
         <div class="tarea">
             <div class="izquierda">
 
@@ -93,6 +92,9 @@
                             {{ tarea.participantes }}
                         </div>
                     </div>
+                </div>
+                <div class="estado" style="margin-right: 30%">
+                    {{ tarea.fecha_limite }}
                 </div>
                 {% if tarea.completada %}
                     <div class="estado">Estado: Hecho</div>
@@ -108,90 +110,7 @@
     {% endfor %}
 </form>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 <!--Formulario +Agregar Tarea-->
 <div class="formulario-overlay" id="formularioOverlayT">
     <div class="formulario-container">
