@@ -98,12 +98,20 @@ Para desarrollar esta aplicación web, se han utilizado las siguientes tecnolog�
     La aplicación estará disponible en `http://127.0.0.1:8000/` (o la dirección que te indique la consola) y a continuación escribre `core/index/`, en el caso en el que la consola te indique la dirección que te he comentado el total quedaría: `http://127.0.0.1:8000/core/index/`.
     Esto te llevara a la página de inicio de la página web desde donde podrás acceder a todos los recursos.
 
+
 ## Uso
 
-1.  Abre tu navegador web y navega a `http://127.0.0.1:8000/core/index/`.
-2.  Una vez que accedas al link apareceras en una página de inicio (actualmente incompleta) en donde se describe un poco como en que se basa la aplicacion con las diferentes secciones.
-3.  Actualmente puedes moverte por todas las páginas que estan disponible, tanto en el encabezado como en el footer, aunque de momento prácticamente todo a excepcion del apartado sobre el perfil (al cual se accede en el logo de user situado en la parte derecha del encabezado) es código estático de HTML, a falta de vincularlo con la BBDD para que se conecte y los datos de los diferentes formularios como de las tareas, gastos... vayan cambiando en función del grupo al que se pertenezca.
+1. Abre tu navegador web y navega a `http://127.0.0.1:8000/core/index/`.
+2. Accederás a la página de inicio, donde se muestra un resumen de las funcionalidades disponibles en cada sección de la aplicación.
+3. Puedes navegar libremente por todas las páginas mediante el encabezado o el footer. Toda la información se gestiona de forma dinámica a través del backend, y los datos mostrados (tareas, gastos, lista de la compra, perfil, etc.) son específicos para cada usuario según el grupo al que pertenezca.
+4. Puedes iniciar sesión con las siguientes credenciales de prueba:  
+   **Usuario:** `prueba1`  
+   **Contraseña:** `prueba.1prueba`
+
+   
 <!--3.  [Si creaste un superusuario, menciona cómo acceder al panel de administración: "Puedes acceder al panel de administración en `http://127.0.0.1:8000/admin/` utilizando las credenciales que creaste."]-->
+
+
 
 <!--## Pruebas (Opcional)
 
