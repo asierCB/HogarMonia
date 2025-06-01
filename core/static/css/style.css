@@ -184,6 +184,19 @@ button[type="submit"]:hover {
     background-color: #fbcb9d;
 }
 
+/* Diseño Cambio Contraseña */
+.contenedor-cambio-contraseña {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 2%;
+}
+
 
 /* Diseño para las tareas */
 

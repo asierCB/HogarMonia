@@ -40,7 +40,7 @@ def tareas(request):
     context = {
         # ... other context variables ...
         'grupo': user_group,  # Make sure you pass the group or group ID correctly
-        # 'user_group_id': context_group.id_grupo if context_group else None # Or pass the ID directly
+        # 'user_group_id': context_group.id_grupo if context_group else None
     }
     return render(request, 'tareas/tareas.html', context)
 

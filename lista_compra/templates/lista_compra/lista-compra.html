@@ -53,7 +53,10 @@
         </div>
     </div>
 </header>
+
 <h1 class="titulo">Lista de la compra conjunta</h1>
+
+{% if grupo and grupo.id_grupo %}
 
 <button type="button" id="btn-agregar-elemento-lista">
     <strong>+ Agregar elemento</strong>
@@ -200,6 +203,14 @@
 </div>
 
 <br><br>
+
+{% else %}
+<div style="min-height: 55vh">
+    <h3>Cree o unase a un grupo para tener acceso a todas las funcionalidades.</h3>
+</div>
+
+{% endif %}
+
 <footer>
     <div style="text-align: center;">
         Contáctanos: centroarmoniadomestica@gmail.com

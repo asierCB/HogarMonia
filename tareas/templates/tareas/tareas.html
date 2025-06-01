@@ -67,6 +67,8 @@
 </div>
 {% endif %}
 
+{% if grupo and grupo.id_grupo %}
+
 <button type="button" id="btn-agregar-tarea">
     <strong>+ Agregar Tarea</strong>
 </button>
@@ -166,11 +168,12 @@
     </div>
 </div>
 
+{% else %}
+<div style="min-height: 55vh">
+    <h3>Cree o unase a un grupo para tener acceso a todas las funcionalidades.</h3>
+</div>
 
-
-
-
-
+{% endif %}
 
 <footer>
     <div style="text-align: center;">
