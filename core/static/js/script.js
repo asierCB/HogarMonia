@@ -86,38 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(hideMessagesTareas, 3000);
 });
-    //Editar Tarea
-/*const mostrarBtnET = document.getElementsByClassName('opciones-tareas')//${{ tarea.id_tareas }}')
-const cerrarBtnET = document.getElementById('cerrarFormularioBtnET')
-const overlayET = document.getElementById('formularioOverlayET')
-
-if (mostrarBtnET && cerrarBtnET && overlayET) {
-    Array.from(mostrarBtnET).forEach(element => {
-        element.addEventListener('click', () => {
-            overlayET.style.display = 'flex';
-        });
-    })
-
-    cerrarBtnET.addEventListener('click', () => {
-        overlayET.style.display = 'none';
-    });
-}*/
-/*document.addEventListener('DOMContentLoaded', () => {
-    const contenedorTarea = document.getElementById('contenedor-tarea');
-
-    if (contenedorTarea) {
-        contenedorTarea.addEventListener('click', () => {
-            // Verificamos si el elemento clickeado es el btn de editar
-            const botonEditar = event.target.closest('[id^="btn-editar-"]');
-
-            if (botonEditar){
-                // Extraemos el id de la Tarea
-                const idTarea = botonEditar.id.replace('btn-editar-', '');
-            }
-        });
-    }
-})
-*/
 
 //Boton opciones desplegable
 document.addEventListener('DOMContentLoaded', () => {

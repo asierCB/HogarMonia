@@ -11,6 +11,18 @@ body {
     background-color: #f2f2f2;
     color: #333951;
     min-height: 100dvh;
+
+    /* --- CAMBIOS AQUÍ --- */
+    display: flex; /* Convierte el body en un contenedor flex */
+    flex-direction: column;
+}
+
+.contenedor-global{
+    min-height: 45vh;
+    flex-grow: 1;
+    width: 100%; /* Asegúrate de que ocupe el ancho completo */
+    margin-top: 2%; /* Puedes ajustar estos márgenes según necesites entre el header y el contenido */
+    margin-bottom: 2%; /* Y entre el contenido y el footer */
 }
 
 header {
@@ -74,7 +86,6 @@ footer {
     border-radius: 15px;
     height: 20%;
     margin-bottom: 2%;
-    z-index: 1000;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;

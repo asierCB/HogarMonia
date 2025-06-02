@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
+from pyexpat.errors import messages
 
 from core.models import GrupoHogar, UsuarioGrupo
 from .models import ProductoLista, ListaCompra
@@ -57,7 +58,7 @@ def lista_grupo(request, grupo_id):
     # Handle form submission
     if request.method == "POST":
         if 'nuevo_producto' in request.POST:
-            form_producto = ProductoListaForm(request.POST, grupo=grupo)  # ✅ También aquí
+            form_producto = ProductoListaForm(request.POST, grupo=grupo)
             if form_producto.is_valid():
                 producto = form_producto.save(commit=False)
                 # Necesitas obtener la lista seleccionada del formulario
@@ -78,7 +79,7 @@ def lista_grupo(request, grupo_id):
             if form_lista.is_valid():
                 lista = form_lista.save(commit=False)
                 lista.id_grupo = grupo
-                lista.creada_por = request.user  # ✅ Corregido: minúscula
+                lista.creada_por = request.user
                 lista.save()
                 return redirect('lista_grupo', grupo_id=grupo_id)
 
@@ -97,15 +98,15 @@ def lista_grupo(request, grupo_id):
                     # Actualizar los productos seleccionados
                     productos_actualizados = ProductoLista.objects.filter(
                         id_producto__in=productos_comprados_ids,
-                        id_lista=lista  # ✅ Ahora sí tenemos la variable lista
+                        id_lista=lista
                     ).update(comprado=True)
 
                     print(f"Se actualizaron {productos_actualizados} productos")  # Para debug
 
                 except ListaCompra.DoesNotExist:
-                    print("Lista no encontrada")  # Para debug
+                    print("Lista no encontrada")
                 except Exception as e:
-                    print(f"Error: {e}")  # Para debug
+                    print(f"Error: {e}")
 
             return redirect('lista_grupo', grupo_id=grupo_id)
 

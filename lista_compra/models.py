@@ -66,7 +66,7 @@ class ProductoLista(models.Model):
     id_lista = models.ForeignKey(ListaCompra, on_delete=models.CASCADE)
     id_producto = models.AutoField(primary_key=True)
     nombre_producto = models.CharField(max_length=50)
-    cantidad = models.IntegerField(default=1)
+    cantidad = models.DecimalField(default=1, decimal_places=2, max_digits=10)
     unidades = models.CharField(choices=UNIDADES, max_length=20, blank=True, null=True)
     comprado = models.BooleanField(default=False)
     tipo = models.CharField(choices=TIPOS, max_length=50, blank=True, null=True)

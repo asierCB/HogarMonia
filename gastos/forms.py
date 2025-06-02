@@ -33,3 +33,4 @@ class GastoForm(forms.ModelForm):
         if grupo:
             # Solo mostramos los usuarios que pertenecen al grupo
             self.fields['participantes'].queryset = UsuarioGrupo.objects.filter(grupo=grupo)#usuariogrupo__id_grupo=grupo)
+            self.fields['pagado_por'].queryset = UsuarioGrupo.objects.filter(grupo=grupo)

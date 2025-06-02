@@ -58,6 +58,8 @@
 
 {% if grupo and grupo.id_grupo %}
 
+<div class="contenedor-global">
+
 <button type="button" id="btn-agregar-elemento-lista">
     <strong>+ Agregar elemento</strong>
 </button>
@@ -65,7 +67,6 @@
 <button type="button" id="btn-agregar-lista">
     <strong>+ Agregar Lista</strong>
 </button>
-
 {% if listas %}
     {% for lista in listas %}
     <form method="post">
@@ -160,7 +161,7 @@
 
             <!-- Lista selector usando Django form -->
             <div class="form-group">
-                <label for="{{ form_producto.id_lista.id_for_label }}">Lista:</label>
+                <label>Lista:</label>
                 {{ form_producto.id_lista }}
                 {% if form_producto.id_lista.errors %}
                 <div class="error">{{ form_producto.id_lista.errors.0 }}</div>
@@ -169,8 +170,8 @@
 
             <!-- Nombre del producto -->
             <div class="form-group">
-                <label for="{{ form_producto.nombre_producto.id_for_label }}">Nombre Producto:</label>
-                {{ form_producto.nombre_producto }}
+                <label>Nombre Producto:</label>
+                {{form_producto.nombre_producto}}
                 {% if form_producto.nombre_producto.errors %}
                 <div class="error">{{ form_producto.nombre_producto.errors.0 }}</div>
                 {% endif %}
@@ -178,7 +179,7 @@
 
             <!-- Cantidad y unidades -->
             <div class="form-group">
-                <label for="{{ form_producto.cantidad.id_for_label }}">Cantidad:</label>
+                <label>Cantidad:</label>
                 {{ form_producto.cantidad }}
                 {{ form_producto.unidades }}
                 {% if form_producto.cantidad.errors %}
@@ -188,14 +189,13 @@
 
             <!-- Tipos (checkboxes) -->
             <div class="form-group">
-                <p>Tipo:</p>
-                {% for checkbox in form_producto.tipos_seleccionados %}
-                <div>
-                    {{ checkbox.tag }}
-                    <label for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
-                </div>
-                {% endfor %}
+                <label>Tipo:</label>
+                {{ form_producto.tipo }}
+                {% if form_producto.tipo.errors %}
+                <div class="error">{{ form_producto.tipo.errors.0 }}</div>
+                {% endif %}
             </div>
+
             <br>
             <button type="submit" name="nuevo_producto">Enviar</button>
         </form>
@@ -203,10 +203,11 @@
 </div>
 
 <br><br>
+</div>
 
 {% else %}
 <div style="min-height: 55vh">
-    <h3>Cree o unase a un grupo para tener acceso a todas las funcionalidades.</h3>
+    <h3>Cree o únase a un grupo para tener acceso a todas las funcionalidades.</h3>
 </div>
 
 {% endif %}

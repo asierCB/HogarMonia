@@ -69,6 +69,8 @@
 
 {% if grupo and grupo.id_grupo %}
 
+<div class="contenedor-global">
+
 <button type="button" id="btn-agregar-tarea">
     <strong>+ Agregar Tarea</strong>
 </button>
@@ -112,6 +114,7 @@
     {% endfor %}
 </form>
 
+</div>
 
 <!--Formulario +Agregar Tarea-->
 <div class="formulario-overlay" id="formularioOverlayT">
@@ -170,11 +173,10 @@
 
 {% else %}
 <div style="min-height: 55vh">
-    <h3>Cree o unase a un grupo para tener acceso a todas las funcionalidades.</h3>
+    <h3>Cree o únase a un grupo para tener acceso a todas las funcionalidades.</h3>
 </div>
 
 {% endif %}
-
 <footer>
     <div style="text-align: center;">
         Contáctanos: centroarmoniadomestica@gmail.com

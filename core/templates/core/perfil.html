@@ -78,7 +78,7 @@
     <div class="div1Perfil">
         <h4>Información Personal:</h4>
         <p>Username: {{ user.username }}</p>
-        <p>Correo electróncio: {{ user.email }}</p>
+        <p>Correo electrónico: {{ user.email }}</p>
         <p><a href="{% url 'password_change' %}" style="color: #ef9071">Cambiar contraseña</a></p>
 
         <form method="POST" action="{% url 'logout' %}">

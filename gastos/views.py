@@ -54,7 +54,7 @@ def miembros_del_grupo(request, grupo_id):
                 deuda += gasto.precio / gasto.participantes.all().count()
                 break
 
-        if request.user == gasto.pagado_por:
+        if request.user == gasto.pagado_por.usuario:
             deuda -= gasto.precio
 
     deuda = round(deuda, 2)
@@ -167,8 +167,9 @@ def info_deuda(request, grupo_id):
                 dicc_deuda[usuario_participante] -= Decimal(str(share_per_participant))
 
         # El que pagó recibe el crédito total
-        if gasto.pagado_por in dicc_deuda:  # Solo si es miembro del grupo
-            dicc_deuda[gasto.pagado_por] += Decimal(str(gasto.precio))
+        usuario_pago = gasto.pagado_por.usuario
+        if usuario_pago in dicc_deuda:  # Solo si es miembro del grupo
+            dicc_deuda[usuario_pago] += Decimal(str(gasto.precio))
 
     context = {
         'grupo': grupo,

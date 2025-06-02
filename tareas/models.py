@@ -7,7 +7,7 @@ from core.models import *
 class Tareas(models.Model):
     id_tareas = models.AutoField(primary_key=True)
     nombre_tareas = models.CharField(max_length=50)
-    fecha_limite = models.DateField(auto_now_add=False)
+    fecha_limite = models.DateField(auto_now_add=False, blank=True, null=True)
     es_periodica = models.BooleanField(default=False)
     frecuencia = models.IntegerField(default=1, verbose_name='Frecuencia (Veces a la semana)')
     completada = models.BooleanField(default=False)

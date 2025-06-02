@@ -11,7 +11,7 @@ class Gasto(models.Model):
     concepto = models.CharField(max_length=50)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     fecha_gasto = models.DateField(auto_now_add=True)
-    pagado_por = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    pagado_por = models.ForeignKey(UsuarioGrupo, blank=True, null=True, on_delete=models.SET_NULL)
     recurrente = models.BooleanField(default=False)
     participantes = models.ManyToManyField(UsuarioGrupo, related_name='gastos')
     grupo = models.ForeignKey(GrupoHogar, on_delete=models.CASCADE, null=True)

@@ -59,9 +59,12 @@
 
 {% if grupo and grupo.id_grupo %}
 
+<div class="contenedor-global">
+
 <button type="button" id="btn-agregar-gasto">
   <strong>+ Agregar gasto</strong>
 </button>
+
 
 {% for gasto in gastos %}
 <div class="contenedor-gastos">
@@ -82,13 +85,8 @@
       <p class="gasto-pagador" style="text-align: right">Pagado por: {{ gasto.pagado_por }}</p>
     </div>
   </div>
-{% endfor %}
 </div>
-
-<!--<div class="deuda" id="deuda-total">
-  <h2>Deuda total: {{ deuda }} euros.</h2>
-  <a href="{% url 'info_deuda' grupo.id_grupo %}"><button class="estado">+info</button></a>
-</div>-->
+{% endfor %}
 
 <div class="deuda" id="deuda-total">
   <h2>Deuda total: {{ deuda }} euros.</h2>
@@ -96,9 +94,9 @@
   <a href="{% url 'info_deuda' grupo.id_grupo %}"><button class="estado">+info</button></a>
   {% endif %}
 </div>
-
 <br><br>
 
+</div>
 
 <!-- Formulario para Agregar Gasto -->
 <div class="formulario-overlay" id="formularioOverlayG">
@@ -144,9 +142,10 @@
   </div>
 </div>
 
+
 {% else %}
 <div style="min-height: 55vh">
-  <h3>Cree o unase a un grupo para tener acceso a todas las funcionalidades.</h3>
+  <h3>Cree o únase a un grupo para tener acceso a todas las funcionalidades.</h3>
 </div>
 
 {% endif %}

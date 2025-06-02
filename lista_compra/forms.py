@@ -16,17 +16,16 @@ class ListaCompraForm(forms.ModelForm):
 
 class ProductoListaForm(forms.ModelForm):
     # Campo personalizado para las opciones tipo con checkboxes
-    tipos_seleccionados = forms.MultipleChoiceField(
-        choices=ProductoLista.TIPOS,
-        widget=forms.RadioSelect,
-        #widget=forms.CheckboxSelectMultiple,
-        required=True,
-        label='Tipos'
-    )
+    #tipos_seleccionados = forms.MultipleChoiceField(
+     #   choices=ProductoLista.TIPOS,
+      #  widget=forms.RadioSelect,
+       # required=True,
+        #label='Tipos'
+    #)
 
     class Meta:
         model = ProductoLista
-        fields = ['nombre_producto', 'cantidad', 'unidades', 'id_lista']
+        fields = ['nombre_producto', 'cantidad', 'unidades', 'id_lista', 'tipo']
         widgets = {
             'nombre_producto': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -39,7 +38,8 @@ class ProductoListaForm(forms.ModelForm):
                 'style': 'width: 50px'
             }),
             'unidades': forms.Select(attrs={'class': 'form-control'}),
-            'id_lista': forms.Select(attrs={'class': 'form-control'})
+            'id_lista': forms.Select(attrs={'class': 'form-control'}),
+            'tipo': forms.RadioSelect(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -49,8 +49,7 @@ class ProductoListaForm(forms.ModelForm):
         # Filtrar las listas disponibles por grupo
         if grupo:
             self.fields['id_lista'].queryset = ListaCompra.objects.filter(
-                id_grupo=grupo,
-                activa=True
+                id_grupo=grupo
             )
             self.fields['id_lista'].empty_label = "Selecciona una lista"
 
@@ -59,9 +58,9 @@ class ProductoListaForm(forms.ModelForm):
 
         # Procesar los tipos seleccionados (si necesitas guardar múltiples tipos)
         tipos = self.cleaned_data.get('tipos_seleccionados')
-        if tipos:
+        #if tipos:
             # Si solo quieres guardar el primero seleccionado
-            instance.tipo = tipos[0] if tipos else ''
+         #   instance.tipo = tipos[0] if tipos else ''
 
         if commit:
             instance.save()
