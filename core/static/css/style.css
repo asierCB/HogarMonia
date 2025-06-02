@@ -568,6 +568,17 @@ button[type="button"]:hover {
     margin-bottom: 3%;
 }
 
+.contenedor-botones-lista{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 10%;
+    margin-bottom: 2%;
+    gap: 5%;
+}
+
 
 /* Diseño Perfil */
 

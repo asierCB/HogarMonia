@@ -73,6 +73,8 @@ def lista_grupo(request, grupo_id):
                         form_producto.add_error('id_lista', 'Lista no válida')
                 else:
                     form_producto.add_error('id_lista', 'Debe seleccionar una lista')
+            else:
+                messages.error(request, 'Por favor corrige los errores en el formulario.')
 
         elif 'nueva_lista' in request.POST:
             form_lista = ListaCompraForm(request.POST)
@@ -100,6 +102,33 @@ def lista_grupo(request, grupo_id):
                         id_producto__in=productos_comprados_ids,
                         id_lista=lista
                     ).update(comprado=True)
+
+                    print(f"Se actualizaron {productos_actualizados} productos")  # Para debug
+
+                except ListaCompra.DoesNotExist:
+                    print("Lista no encontrada")
+                except Exception as e:
+                    print(f"Error: {e}")
+
+            return redirect('lista_grupo', grupo_id=grupo_id)
+
+        elif 'delete_producto' in request.POST:
+            productos_comprados_ids = request.POST.getlist('productos_comprados')
+            lista_id = request.POST.get('lista_id')
+
+            if productos_comprados_ids and lista_id:
+                try:
+                    # Verificar que la lista pertenezca al grupo actual
+                    lista = ListaCompra.objects.get(id_lista=lista_id, id_grupo=grupo)
+
+                    # Convertir a enteros
+                    productos_comprados_ids = [int(id) for id in productos_comprados_ids]
+
+                    # Eliminar los productos seleccionados
+                    productos_actualizados = ProductoLista.objects.filter(
+                        id_producto__in=productos_comprados_ids,
+                        id_lista=lista
+                    ).delete()
 
                     print(f"Se actualizaron {productos_actualizados} productos")  # Para debug
 
