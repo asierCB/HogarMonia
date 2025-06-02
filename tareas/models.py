@@ -12,7 +12,7 @@ class Tareas(models.Model):
     frecuencia = models.IntegerField(default=1, verbose_name='Frecuencia (Veces a la semana)')
     completada = models.BooleanField(default=False)
     tiempo_estimado = models.FloatField(default=0.5, )
-    participantes = models.ForeignKey(UsuarioGrupo, related_name='tareas', blank=True, null=True, on_delete=models.DO_NOTHING)
+    participantes = models.ForeignKey(UsuarioGrupo, related_name='tareas', blank=True, null=True, on_delete=models.SET_NULL)
 
     #participantes = models.ManyToManyField(UsuarioGrupo, related_name='tareas', blank=True, null=True)
     grupo = models.ForeignKey(GrupoHogar, on_delete=models.DO_NOTHING)

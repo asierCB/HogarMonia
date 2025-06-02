@@ -15,27 +15,55 @@
         </div>
         <div class="divLinks">
             <ul id="header-nav">
+                {% if not user.is_authenticated %}
+                <li class="elementos-header"><a href="{% url 'login' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
+                {% else %}
                 {% if grupo and grupo.id_grupo %}
                 <li class="elementos-header"><a href="{% url 'tareas' grupo.id_grupo %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
                 {% else %}
                 <li class="elementos-header"><a href="{% url 'tareas_ind' %}"><img src="{% static 'img/tareas.png' %}" height="60"></a></li>
                 {% endif %}
-
-                {% if grupo and grupo.id_grupo %}
-                <li class="elementos-header"><a href="{% url 'gastos' grupo.id_grupo %}"><img src="{% static 'img/gastos-clicked.png' %}" height="60"></a></li>
-                {% else %}
-                <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos-clicked.png' %}" height="60"></a></li>
                 {% endif %}
 
+                {% if not user.is_authenticated %}
+                <li class="elementos-header"><a href="{% url 'login' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
+                {% else %}
+                {% if grupo and grupo.id_grupo %}
+                <li class="elementos-header"><a href="{% url 'gastos' grupo.id_grupo %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
+                {% else %}
+                <li class="elementos-header"><a href="{% url 'gastos_ind' %}"><img src="{% static 'img/gastos.png' %}" height="60"></a></li>
+                {% endif %}
+                {% endif %}
+
+                {% if not user.is_authenticated %}
+                <li class="elementos-header"><a href="{% url 'login' %}"><img src="{% static 'img/listacompra.png' %}" height="60"></a></li>
+                {% else %}
                 {% if grupo and grupo.id_grupo %}
                 <li class="elementos-header"><a href="{% url 'lista_grupo' grupo.id_grupo%}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
                 {% else %}
                 <li class="elementos-header"><a href="{% url 'lista_compra' %}"><img src="{% static 'img/listacompra.png' %}" height="60" ></a></li>
                 {% endif %}
+                {% endif %}
+
             </ul>
         </div>
         <div class="divUser">
-            <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+            {% if user.is_authenticated %}
+            <div class="user-logo">
+                {% if user.profile.foto %}
+                <a href="{% url 'perfil' %}"><img src="{{ user.profile.foto.url }}" alt="user" width="40" height="40"></a>
+                {% else %}
+                <a href="{% url 'perfil' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+                {% endif %}
+            </div>
+            <div class="user-info">
+                <label>Username: {{ user.username }}</label>
+            </div>
+            {% else %}
+            <div class="user-info">
+                <a href="{% url 'login' %}"><img src="{% static 'img/imagen_usuario.png' %}" alt="user" width="40" height="40"></a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </header>
@@ -135,7 +163,7 @@
 
 <h3>10. Disposiciones Generales:</h3>
     <ul>
-        <li>Estos Términos constituyen el acuerdo completo entre tú y [Tu Nombre/Nombre de tu Empresa] con respecto al uso del
+        <li>Estos Términos constituyen el acuerdo completo entre tú y HogarMonia con respecto al uso del
             Sitio Web y reemplazan todos los acuerdos y entendimientos anteriores o contemporáneos, ya sean orales o escritos.</li>
         <br>
         <li>La falta de ejercicio o aplicación por nuestra parte de cualquier derecho o disposición de estos Términos no constituirá
