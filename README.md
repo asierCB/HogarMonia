@@ -104,9 +104,9 @@ Para desarrollar esta aplicación web, se han utilizado las siguientes tecnolog�
 1. Abre tu navegador web y navega a `http://127.0.0.1:8000/core/index/`.
 2. Accederás a la página de inicio, donde se muestra un resumen de las funcionalidades disponibles en cada sección de la aplicación.
 3. Puedes navegar libremente por todas las páginas mediante el encabezado o el footer. Toda la información se gestiona de forma dinámica a través del backend, y los datos mostrados (tareas, gastos, lista de la compra, perfil, etc.) son específicos para cada usuario según el grupo al que pertenezca.
-4. Puedes iniciar sesión con las siguientes credenciales de prueba:  
+<!--4. Puedes iniciar sesión con las siguientes credenciales de prueba:  
    **Usuario:** `prueba1`  
-   **Contraseña:** `prueba.1prueba`
+   **Contraseña:** `prueba.1prueba`-->
 
    
 <!--3.  [Si creaste un superusuario, menciona cómo acceder al panel de administración: "Puedes acceder al panel de administración en `http://127.0.0.1:8000/admin/` utilizando las credenciales que creaste."]-->
