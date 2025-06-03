@@ -10,18 +10,9 @@ class GastoForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple(attrs={
             'class': 'custom-checkbox',
             'style': 'display: flex; flex-direction: column; gap: 8px;'
-            #'style': 'display: flex; flex-direction: column;'
         }),
         required=False
     )
-    '''pagado_por = forms.ModelChoiceField(
-        queryset=UsuarioGrupo.objects.none(),
-        widget=forms.RadioSelect(attrs={
-            'class': 'custom-radio',
-            'style': 'display: flex; flex-direction: row;'
-        }),
-        required=True
-    )'''
 
     class Meta:
         model = Gasto
@@ -31,6 +22,5 @@ class GastoForm(forms.ModelForm):
         grupo = kwargs.pop('grupo', None)  # sacamos el grupo del constructor
         super().__init__(*args, **kwargs)
         if grupo:
-            # Solo mostramos los usuarios que pertenecen al grupo
             self.fields['participantes'].queryset = UsuarioGrupo.objects.filter(grupo=grupo)#usuariogrupo__id_grupo=grupo)
             self.fields['pagado_por'].queryset = UsuarioGrupo.objects.filter(grupo=grupo)

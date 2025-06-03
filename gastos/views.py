@@ -36,9 +36,9 @@ def miembros_del_grupo(request, grupo_id):
         form = GastoForm(request.POST, grupo=grupo)
         if form.is_valid():
             gasto = form.save(commit=False)
-            gasto.grupo = grupo  # If you have a grupo field in your Gasto model
+            gasto.grupo = grupo
             gasto.save()
-            form.save_m2m()  # Important to save ManyToMany relationships
+            form.save_m2m()
             return redirect('gastos', grupo_id=grupo_id)
     else:
         form = GastoForm(grupo=grupo)
@@ -54,13 +54,10 @@ def miembros_del_grupo(request, grupo_id):
                 deuda += gasto.precio / gasto.participantes.all().count()
                 break
 
-        if request.user == gasto.pagado_por.usuario:
+        if gasto.pagado_por is not None and request.user == gasto.pagado_por.usuario:
             deuda -= gasto.precio
 
     deuda = round(deuda, 2)
-
-
-
 
     context = {
         'grupo': grupo,
@@ -97,7 +94,7 @@ def edit_gasto(request, gasto_id):
             gasto = form.save(commit=False)
             gasto.grupo = grupo
             gasto.save()
-            form.save_m2m()  # Important to save ManyToMany relationships
+            form.save_m2m()
 
             # Refrescar los participantes después del save
             participantes_usuario_ids = list(
@@ -122,7 +119,7 @@ def edit_gasto(request, gasto_id):
         'miembros': miembros,
         'form': form,
         'user': request.user,
-        'gasto': gasto,  # Ahora gasto tiene los datos actualizados
+        'gasto': gasto,
         'participantes_usuario_ids': participantes_usuario_ids,
     }
 
@@ -164,12 +161,13 @@ def info_deuda(request, grupo_id):
         for participante_relacion in participantes_usuario_grupo:
             usuario_participante = participante_relacion.usuario  # Aquí accedes al User
             if usuario_participante in dicc_deuda:  # Solo si es miembro del grupo
-                dicc_deuda[usuario_participante] -= Decimal(str(share_per_participant))
+                dicc_deuda[usuario_participante] -= Decimal(str(round(share_per_participant)))
 
         # El que pagó recibe el crédito total
-        usuario_pago = gasto.pagado_por.usuario
-        if usuario_pago in dicc_deuda:  # Solo si es miembro del grupo
-            dicc_deuda[usuario_pago] += Decimal(str(gasto.precio))
+        if gasto.pagado_por is not None:
+            usuario_pago = gasto.pagado_por.usuario
+            if usuario_pago in dicc_deuda:  # Solo si es miembro del grupo
+                dicc_deuda[usuario_pago] += Decimal(str(round(gasto.precio)))
 
     context = {
         'grupo': grupo,

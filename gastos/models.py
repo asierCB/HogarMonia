@@ -1,10 +1,6 @@
-#models.py
-
 from django.db import models
 from core.models import *
 from django.contrib.auth.models import User
-
-# Create your models here.
 
 class Gasto(models.Model):
     id_gasto = models.AutoField(primary_key=True)

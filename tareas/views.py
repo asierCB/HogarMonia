@@ -16,31 +16,15 @@ def tareas(request):
     user_group = None
     if user.is_authenticated:
         try:
-            # Assuming a relation from User to UsuarioGrupo, and then to GrupoHogar
-            # You might need to adjust this based on your model relationships
             user_grupo_relation = UsuarioGrupo.objects.get(usuario_id=user)
-            user_group = user_grupo_relation.grupo  # This should be the GrupoHogar object
+            user_group = user_grupo_relation.grupo
         except UsuarioGrupo.DoesNotExist:
-            user_group = None  # User is authenticated but not in a group
+            user_group = None
         except Exception as e:
-            print(f"Error getting user group in index view: {e}")
             user_group = None
 
-    # Check the value you're passing to the template for the group ID
-    # Assuming your template uses something like {% url 'gastos' context_group.id_grupo %}
-
-    print(f"--- Debugging index view context ---")
-    print(f"Variable 'context_group': {user_group}")
-    if user_group:
-        print(f"Variable 'context_group.id_grupo': {user_group.id_grupo}")  # Or context_group.id
-    else:
-        print("Variable 'context_group' is None or empty")
-    print("--- End index view debugging ---")
-
     context = {
-        # ... other context variables ...
-        'grupo': user_group,  # Make sure you pass the group or group ID correctly
-        # 'user_group_id': context_group.id_grupo if context_group else None
+        'grupo': user_group,
     }
     return render(request, 'tareas/tareas.html', context)
 
@@ -147,9 +131,9 @@ def edit_tarea(request, tarea_id,):
         form = TareaForm(request.POST, instance=tarea, grupo=grupo)
         if form.is_valid():
             tarea = form.save(commit=False)
-            tarea.grupo = grupo  # If you have a grupo field in your Gasto model
+            tarea.grupo = grupo
             tarea.save()
-            form.save_m2m()  # Important to save ManyToMany relationships
+            form.save_m2m()
             return redirect('tareas', grupo_id=grupo.id_grupo)
     else:
         form = TareaForm(instance=tarea, grupo=grupo)
@@ -158,8 +142,6 @@ def edit_tarea(request, tarea_id,):
     relaciones_grupo = UsuarioGrupo.objects.filter(grupo=grupo)
     miembros = User.objects.filter(id__in=relaciones_grupo.values_list('usuario', flat=True))
 
-    #participantes_ids = tarea.participantes.values_list('id', flat=True)
-    # Obtener los usuarios (no UsuarioGrupo) participantes de la tarea
     participantes_usuario_id = None
     if tarea.participantes:
         participante_usuario_id = tarea.participantes.usuario.id
@@ -171,7 +153,6 @@ def edit_tarea(request, tarea_id,):
         'user': request.user,
 
         'tarea': tarea,  # .order_by('-fecha_gasto'),
-        #'participantes_usuario_ids': participante_usuario_id,
     }
 
     return render(request, 'tareas/edit-tarea.html', context)

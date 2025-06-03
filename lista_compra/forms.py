@@ -15,14 +15,6 @@ class ListaCompraForm(forms.ModelForm):
         }
 
 class ProductoListaForm(forms.ModelForm):
-    # Campo personalizado para las opciones tipo con checkboxes
-    #tipos_seleccionados = forms.MultipleChoiceField(
-     #   choices=ProductoLista.TIPOS,
-      #  widget=forms.RadioSelect,
-       # required=True,
-        #label='Tipos'
-    #)
-
     class Meta:
         model = ProductoLista
         fields = ['nombre_producto', 'cantidad', 'unidades', 'id_lista', 'tipo']
@@ -56,11 +48,7 @@ class ProductoListaForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        # Procesar los tipos seleccionados (si necesitas guardar múltiples tipos)
         tipos = self.cleaned_data.get('tipos_seleccionados')
-        #if tipos:
-            # Si solo quieres guardar el primero seleccionado
-         #   instance.tipo = tipos[0] if tipos else ''
 
         if commit:
             instance.save()

@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
-# Create your models here.
-
-
 class GrupoHogar(models.Model):
     id_grupo = models.AutoField(primary_key=True)
     nombre_grupo = models.CharField(max_length=50, null=False, blank=False)
