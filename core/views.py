@@ -30,10 +30,38 @@ def index(request):
     return render(request, 'core/index.html', context)
 
 def terms(request):
-    return render(request, 'core/terminos-condiciones.html')
+    user = request.user
+    user_group = None
+    if user.is_authenticated:
+        try:
+            user_grupo_relation = UsuarioGrupo.objects.get(usuario_id=user)
+            user_group = user_grupo_relation.grupo
+        except UsuarioGrupo.DoesNotExist:
+            user_group = None
+        except Exception as e:
+            user_group = None
+
+    context = {
+        'grupo': user_group,
+    }
+    return render(request, 'core/terminos-condiciones.html', context)
 
 def privacy(request):
-    return render(request, 'core/privacidad.html')
+    user = request.user
+    user_group = None
+    if user.is_authenticated:
+        try:
+            user_grupo_relation = UsuarioGrupo.objects.get(usuario_id=user)
+            user_group = user_grupo_relation.grupo
+        except UsuarioGrupo.DoesNotExist:
+            user_group = None
+        except Exception as e:
+            user_group = None
+
+    context = {
+        'grupo': user_group,
+    }
+    return render(request, 'core/privacidad.html', context)
 
 def register_view(request):
     if request.method == 'POST':
